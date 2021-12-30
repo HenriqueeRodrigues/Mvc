@@ -39,3 +39,8 @@ C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Ra
 C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Razor\Views\Departments\Details.cshtml.g.cs
 C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Razor\Views\Departments\Edit.cshtml.g.cs
 C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Razor\Views\Departments\Index.cshtml.g.cs
+C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Razor\Views\Sellers\Index.cshtml.g.cs
+C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Razor\Views\Sellers\Create.cshtml.g.cs
+C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Razor\Views\Sellers\Delete.cshtml.g.cs
+C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Razor\Views\Sellers\Details.cshtml.g.cs
+C:\Users\Henri\source\repos\SalesWebMvc1\SalesWebMvc1\obj\Debug\netcoreapp2.1\Razor\Views\Sellers\Edit.cshtml.g.cs
