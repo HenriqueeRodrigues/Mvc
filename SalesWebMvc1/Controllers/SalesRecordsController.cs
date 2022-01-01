@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SalesWebMvc.Services;
 using SalesWebMvc1.Services;
 
-namespace SalesWebMvc.Controllers
+namespace SalesWebMvc1.Controllers
 {
     public class SalesRecordsController : Controller
     {
-        private readonly SallesRecordService _salesRecordService;
+        private readonly SalesRecordService _salesRecordService;
 
-        public SalesRecordsController(SallesRecordService salesRecordService)
+        public SalesRecordsController(SalesRecordService salesRecordService)
         {
             _salesRecordService = salesRecordService;
         }

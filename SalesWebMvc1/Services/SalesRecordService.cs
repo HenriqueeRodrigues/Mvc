@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc1.Data;
 
-namespace SalesWebMvc.Services
+namespace SalesWebMvc1.Services
 {
-    public class SallesRecordService
+    public class SalesRecordService
     {
         private readonly SalesWebMvc1Context _context;
 
-        public SallesRecordService(SalesWebMvc1Context context)
+        public SalesRecordService(SalesWebMvc1Context context)
         {
             _context = context;
         }
 
-        public async Task<List<SallesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
+        public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
-            var result = from obj in _context.SallesRecord select obj;
+            var result = from obj in _context.SalesRecord select obj;
             if (minDate.HasValue)
             {
                 result = result.Where(x => x.Date >= minDate.Value);
@@ -35,9 +35,9 @@ namespace SalesWebMvc.Services
                 .ToListAsync();
         }
 
-        public async Task<List<IGrouping<Department, SallesRecord>>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
+        public async Task<List<IGrouping<Department,SalesRecord>>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
         {
-            var result = from obj in _context.SallesRecord select obj;
+            var result = from obj in _context.SalesRecord select obj;
             if (minDate.HasValue)
             {
                 result = result.Where(x => x.Date >= minDate.Value);
