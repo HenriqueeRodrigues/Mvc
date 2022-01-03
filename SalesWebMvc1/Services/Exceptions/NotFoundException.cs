@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SalesWebMvc1.Services.Exceptions
+namespace SecretaryWebMvc.Services.Exceptions
 {
     public class NotFoundException : ApplicationException
     {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SalesWebMvc1.Models;
-using SalesWebMvc1.Models.ViewModels;
+using SecretaryWebMvc.Models;
+using SecretaryWebMvc.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SalesWebMvc1.Controllers
+namespace SecretaryWebMvc.Controllers
 {
     public class HomeController : Controller
     {
@@ -18,7 +18,7 @@ namespace SalesWebMvc1.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Sales Web App from C#.";
+            ViewData["Message"] = "Assistente Secretario JW";
             ViewData["Autor"] = "Henrique.";
 
             return View();

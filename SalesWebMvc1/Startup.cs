@@ -10,12 +10,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SalesWebMvc1.Data;
-using SalesWebMvc1.Services;
+using SecretaryWebMvc.Data;
+using SecretaryWebMvc.Services;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 
-namespace SalesWebMvc1
+namespace SecretaryWebMvc
 {
     public class Startup
     {
@@ -39,14 +39,14 @@ namespace SalesWebMvc1
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<SalesWebMvc1Context>(options =>
-                    options.UseMySql(Configuration.GetConnectionString("SalesWebMvc1Context"), builder =>
-                        builder.MigrationsAssembly("SalesWebMvc1")));
+            services.AddDbContext<SecretaryWebMvcContext>(options =>
+                    options.UseMySql(Configuration.GetConnectionString("SecretaryWebMvcContext"), builder =>
+                        builder.MigrationsAssembly("SecretaryWebMvc")));
 
             services.AddScoped<SeedingService>();//Sempre adicionar os novos serviços
-            services.AddScoped<SellerService>();
-            services.AddScoped<DepartmentService>();
-            services.AddScoped<SalesRecordService>();
+            services.AddScoped<PublisherService>();
+            services.AddScoped<CongregationService>();
+            services.AddScoped<ActivitiesReportService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

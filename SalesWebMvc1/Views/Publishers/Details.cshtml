@@ -1,0 +1,75 @@
+﻿@model SecretaryWebMvc.Models.Publisher
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Publisher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SimpleAddress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SimpleAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BaptismDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BaptismDate)
+        </dd>
+        <dt>
+            <label>Congregação</label>
+            @Html.DisplayNameFor(model => model.Congregation.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Congregation.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAnointed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAnointed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsElder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsElder)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsMinisterialServant)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsMinisterialServant)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ispioneer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ispioneer)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+    <a asp-action="Index">Back to list</a>
+</div>

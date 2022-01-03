@@ -1,5 +1,5 @@
 ﻿
-namespace SalesWebMvc1.Models.Enums
+namespace SecretaryWebMvc.Models.Enums
 {
     public enum SaleStatus : int
     {

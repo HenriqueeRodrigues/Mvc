@@ -12739,11 +12739,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Henri\\source\\repos\\SalesWebMvc1\\SalesWebMvc1\\SalesWebMvc1.csproj",
-      "projectName": "SalesWebMvc1",
-      "projectPath": "C:\\Users\\Henri\\source\\repos\\SalesWebMvc1\\SalesWebMvc1\\SalesWebMvc1.csproj",
+      "projectUniqueName": "C:\\Users\\Henri\\source\\repos\\SecretaryWebMvc\\SalesWebMvc1\\SecretaryWebMvc.csproj",
+      "projectName": "SecretaryWebMvc",
+      "projectPath": "C:\\Users\\Henri\\source\\repos\\SecretaryWebMvc\\SalesWebMvc1\\SecretaryWebMvc.csproj",
       "packagesPath": "C:\\Users\\Henri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Henri\\source\\repos\\SalesWebMvc1\\SalesWebMvc1\\obj\\",
+      "outputPath": "C:\\Users\\Henri\\source\\repos\\SecretaryWebMvc\\SalesWebMvc1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"

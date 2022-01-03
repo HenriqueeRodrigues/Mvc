@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SalesWebMvc1
+namespace SecretaryWebMvc
 {
     public class Program
     {
