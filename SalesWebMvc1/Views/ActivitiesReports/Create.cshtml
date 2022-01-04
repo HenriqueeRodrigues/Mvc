@@ -1,0 +1,79 @@
+﻿@model SecretaryWebMvc.Models.ViewModels.ActivitiesReportFormViewModel
+
+@{
+    ViewData["Title"] = "Adicionar";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Atividades</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"> Publicador</label>
+                        <select asp-for="ActivitiesReport.PublisherId" asp-items="@(new SelectList(Model.Publishers,"Id","FullName"))" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Publicações</label>
+                        <input asp-for="ActivitiesReport.Publications" class="form-control" />
+                        <span asp-validation-for="ActivitiesReport.Publications" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Vídeo</label>
+                        <input asp-for="ActivitiesReport.Video" class="form-control" />
+                        <span asp-validation-for="ActivitiesReport.Video" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Horas</label>
+                        <input asp-for="ActivitiesReport.Hours" class="form-control" />
+                        <span asp-validation-for="ActivitiesReport.Hours" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Revisitas</label>
+                        <input asp-for="ActivitiesReport.Revisits" class="form-control" />
+                        <span asp-validation-for="ActivitiesReport.Revisits" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label class="control-label">Estudos</label>
+                        <input asp-for="ActivitiesReport.BibleStudies" class="form-control" />
+                        <span asp-validation-for="ActivitiesReport.BibleStudies" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Horas Adicionais</label>
+                        <input asp-for="ActivitiesReport.PlusHours" class="form-control" />
+                        <span asp-validation-for="ActivitiesReport.PlusHours" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Observação</label>
+                        <input asp-for="ActivitiesReport.Observation" class="form-control" />
+                        <span asp-validation-for="ActivitiesReport.Observation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Mês</label>
+                        <input asp-for="ActivitiesReport.Date.Month" class="form-control" />
+                        <span asp-validation-for="ActivitiesReport.Date" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <br />
+                        <div class="row">
+                            <input type="submit" value="Criar" class="btn btn-default col-md-12 " />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

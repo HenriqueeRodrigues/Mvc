@@ -48,7 +48,16 @@ namespace SecretaryWebMvc.Models
         {
         }
 
-        public Publisher(int id, string fullName, string simpleAddress, DateTime birthDate, DateTime baptismDate, bool isAnointed, bool isElder, bool isMinisterialServant, bool ispioneer, Congregation congregation)
+        public Publisher(int id, 
+            string fullName, 
+            string simpleAddress,
+            DateTime birthDate, 
+            DateTime baptismDate, 
+            bool isAnointed,
+            bool isElder, 
+            bool isMinisterialServant, 
+            bool ispioneer, 
+            Congregation congregation)
         {
             Id = id;
             FullName = fullName;

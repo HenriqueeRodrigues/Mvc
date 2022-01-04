@@ -16,10 +16,10 @@ namespace SalesWebMvc.Controllers
         private readonly PublisherService _PublisherService;
         private readonly CongregationService _CongregationService;
 
-        public PublishersController(PublisherService PublisherService, CongregationService CongregationService)
+        public PublishersController(PublisherService publisherService, CongregationService congregationService)
         {
-            _PublisherService = PublisherService;
-            _CongregationService = CongregationService;
+            _PublisherService = publisherService;
+            _CongregationService = congregationService;
         }
 
         public async Task<IActionResult> Index()

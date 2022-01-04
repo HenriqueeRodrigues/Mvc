@@ -4,62 +4,61 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>Editar</h2>
 
-<h4>Publisher</h4>
+<h4>Publicador: @Html.DisplayFor(model => model.Publisher.FullName)</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <input type="hidden" asp-for="Publisher.Id" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Publisher.FullName" class="control-label"></label>
+                <label class="control-label">Nome Completo</label>
                 <input asp-for="Publisher.FullName" class="form-control" />
                 <span asp-validation-for="Publisher.FullName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Publisher.SimpleAddress" class="control-label"></label>
+                <label class="control-label">Endereço Simplificado</label>
                 <input asp-for="Publisher.SimpleAddress" class="form-control" />
                 <span asp-validation-for="Publisher.SimpleAddress" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Publisher.BirthDate" class="control-label"></label>
+                <label class="control-label">Data Nascimento</label>
                 <input asp-for="Publisher.BirthDate" class="form-control" />
                 <span asp-validation-for="Publisher.BirthDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Publisher.BaptismDate" class="control-label"></label>
+                <label class="control-label">Data Batismo</label>
                 <input asp-for="Publisher.BaptismDate" class="form-control" />
                 <span asp-validation-for="Publisher.BaptismDate" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Publisher.IsAnointed" class="control-label"></label>
-                <input asp-for="Publisher.IsAnointed" class="form-check-input" />
+            <div class="form-group ">
+                <label class="control-label">Ungido</label>
+                <input type="checkbox" asp-for="Publisher.IsAnointed" class="form-check-input" />
                 <span asp-validation-for="Publisher.IsAnointed" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Publisher.IsElder" class="control-label"></label>
-                <input asp-for="Publisher.IsElder" class="form-check-input" />
+                <label class="control-label">Ancião</label>
+                <input type="checkbox" asp-for="Publisher.IsElder" class="form-check-input" />
                 <span asp-validation-for="Publisher.IsElder" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Publisher.IsMinisterialServant" class="control-label"></label>
-                <input asp-for="Publisher.IsMinisterialServant" class="form-check-input" />
+                <label class="control-label">Servo Ministerial</label>
+                <input type="checkbox" asp-for="Publisher.IsMinisterialServant" class="form-check-input " />
                 <span asp-validation-for="Publisher.IsMinisterialServant" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Publisher.CongregationId" class="control-label"></label>
+                <label class="control-label">Congregação</label>
                 <select asp-for="Publisher.CongregationId" asp-items="@(new SelectList(Model.Congregations,"Id","Name"))" class="form-control"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>

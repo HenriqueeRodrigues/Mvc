@@ -1,0 +1,72 @@
+﻿@model SecretaryWebMvc.Models.ActivitiesReport
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Atividades do publicador : @Html.DisplayFor(model => model.Publisher.FullName)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label>Publicador</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Publisher.FullName)
+        </dd>
+        <dt>
+            <label>Publicações</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Publications)
+        </dd>
+        <dt>
+            <label>Videos</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Video)
+        </dd>
+        <dt>
+            <label>Horas</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hours)
+        </dd>
+        <dt>
+            <label>Revisitas</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Revisits)
+        </dd>
+        <dt>
+            <label>Estudos</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BibleStudies)
+        </dd>
+        <dt>
+            <label>Horas Adicionais</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlusHours)
+        </dd>
+        <dt>
+            <label>Observações</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Observation)
+        </dd>
+        <dt>
+            <label>Mês</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date.Month)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+    <a asp-action="Index">Back to list</a>
+</div>

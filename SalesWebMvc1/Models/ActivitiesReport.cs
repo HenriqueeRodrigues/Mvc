@@ -8,11 +8,10 @@ namespace SecretaryWebMvc.Models
     public class ActivitiesReport
     {
         public int Id { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyy}")]
 
-        public DateTime Date { get; set; }
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
+        public DateTime Date { get; set; } 
 
-        [DisplayFormat(DataFormatString = "{0:F2}")]
 
         public double Publications { get; set; }
 
@@ -28,8 +27,9 @@ namespace SecretaryWebMvc.Models
 
         public string Observation { get; set; }
 
-
         public  Publisher Publisher { get; set; }
+
+        public  int PublisherId { get; set; }
 
         public ActivitiesReport()
         {

@@ -1,62 +1,58 @@
 ﻿@model SecretaryWebMvc.Models.Publisher
 
-@{
-    ViewData["Title"] = "Delete";
-}
-
-<h2>@ViewData["Title"]</h2>
-
-<h3>Are your sure you want to delete this?</h3>
+    <h3>
+        Você realmente deseja excluir o publicador:
+        @Html.DisplayFor(model => model.FullName) ?
+    </h3>
 
 <div>
-    <h4>Publisher</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FullName)
+           <label>Nome</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.FullName )
+            @Html.DisplayFor(model => model.FullName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SimpleAddress)
+            <label>Endereço</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.SimpleAddress)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BirthDate)
+            <label>Data Nascimento</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.BirthDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BaptismDate)
-        </dt>
-        <dt>
-            @Html.DisplayFor(model => model.BaptismDate)
+            <label>Data Batismo</label>
         </dt>
         <dd>
-            @Html.DisplayNameFor(model => model.IsAnointed)
+            @Html.DisplayFor(model => model.BaptismDate)
         </dd>
+        <dt>
+            <label>Ungido</label>
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.IsAnointed)
         </dd>
-        <dd>
-            @Html.DisplayNameFor(model => model.IsElder)
-        </dd>
+        <dt>
+            <label>Ancião</label>
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.IsElder)
         </dd>
-        <dd>
-            @Html.DisplayNameFor(model => model.IsMinisterialServant)
-        </dd>
+        <dt>
+            <label>Servo Ministerial</label>
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.IsMinisterialServant)
         </dd>
-        <dd>
-            @Html.DisplayNameFor(model => model.Ispioneer)
-        </dd>
+        <dt>
+            <label>Pioneiro</label>
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.Ispioneer)
         </dd>

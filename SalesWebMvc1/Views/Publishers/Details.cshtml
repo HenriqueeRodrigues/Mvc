@@ -3,70 +3,61 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h2>@ViewData["Title"]</h2>
+<h2>Detalhes</h2>
 
 <div>
-    <h4>Publisher</h4>
+    <h4>Publicador: @Html.DisplayFor(model => model.FullName)</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FullName)
+            <label>Nome</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.FullName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SimpleAddress)
+            <label>Endereço</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.SimpleAddress)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BirthDate)
+            <label>Data Nascimento</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.BirthDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BaptismDate)
+            <label>Data Batismo</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.BaptismDate)
         </dd>
         <dt>
-            <label>Congregação</label>
-            @Html.DisplayNameFor(model => model.Congregation.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Congregation.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAnointed)
+            <label>Ungido</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.IsAnointed)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IsElder)
+            <label>Ancião</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.IsElder)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IsMinisterialServant)
+            <label>Servo Ministerial</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.IsMinisterialServant)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Ispioneer)
+            <label>Pioneiro</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Ispioneer)
         </dd>
-
     </dl>
 </div>
 <div>
