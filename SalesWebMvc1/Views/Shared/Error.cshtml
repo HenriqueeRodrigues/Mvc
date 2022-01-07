@@ -1,15 +1,20 @@
 ﻿@model SecretaryWebMvc.Models.ViewModels.ErrorViewModel
-@{
-    ViewData["Title"] = "Error";
-}
 
-<h1 class="text-danger">@ViewData["Title"].</h1>
-<h2 class="text-danger">Model.Message</h2>
 
-@if (Model.ShowRequestId)
+<h1 class="text-danger">Erro.</h1>
+<h2 class="text-danger">Infelizmente você não pode executar está ação</h2>
+
+@if (Model != null)
 {
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
+    var texto = Model.Message;
+
+    <h1>@texto</h1>
 }
+
+<a asp-action="Index">Voltar a Home</a>
+
+
+
+
+
 

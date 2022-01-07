@@ -18,18 +18,23 @@ namespace SecretaryWebMvc.Models
 
         public ICollection<Publisher> Publishers { get; set; } = new List<Publisher>();
 
+        //public Users Users { get; set; }
+
+        //public int? UserId { get; set; }
+
         public Congregation()
         {
         }
 
-        public Congregation(int id, string name, string city, string state)
+        public Congregation(int id, string name, string city, string state/*, Users users*/)
         {
             Id = id;
             Name = name;
             City = city;
             State = state;
+            //Users = users;
         }
-
+        
         public void AddPublishers(Publisher Publisher)
         {
             this.Publishers.Add(Publisher);

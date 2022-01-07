@@ -9,21 +9,21 @@ namespace SecretaryWebMvc.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "{0} required")]
-        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} size should be between {2} and {1}")]
+        [Required(ErrorMessage = "{0} Obrigatório")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = " O tamanho minimo deve ser de {2} letras ")]
         public string FullName { get; set; }
 
 
         public string SimpleAddress { get; set; }
 
-        [Required(ErrorMessage = "{0} required")]
-        [Display(Name = "Birth Date")]
+        [Required(ErrorMessage = "{0} Obrigatório")]
+        [Display(Name = "Data de Nascimento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
 
-        [Display(Name = "Baptism Date")]
+        [Display(Name = "Data de Batismo")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BaptismDate { get; set; }
@@ -36,7 +36,6 @@ namespace SecretaryWebMvc.Models
         public bool IsMinisterialServant { get; set; }
 
         public bool Ispioneer { get; set; }
-
 
         public Congregation Congregation { get; set; }
 

@@ -7,5 +7,7 @@ namespace SecretaryWebMvc.Models.ViewModels
         public Publisher Publisher { get; set; }
 
         public ICollection<Congregation> Congregations { get; set; }
+
+       
     }
 }

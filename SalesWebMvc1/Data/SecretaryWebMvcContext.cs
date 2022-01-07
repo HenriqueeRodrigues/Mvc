@@ -17,5 +17,6 @@ namespace SecretaryWebMvc.Data
         public DbSet<Congregation> Congregation { get; set; }
         public DbSet<Publisher> Publisher { get; set; }
         public DbSet<ActivitiesReport>ActivitiesReport { get; set; }
+        public DbSet<Users> User { get; set; }
     }
 }

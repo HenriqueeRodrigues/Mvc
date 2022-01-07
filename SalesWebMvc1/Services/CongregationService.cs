@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SecretaryWebMvc.Controllers;
 using SecretaryWebMvc.Data;
 using SecretaryWebMvc.Models;
 using System;
@@ -21,10 +22,12 @@ namespace SecretaryWebMvc.Services
         {
             return await _context.Congregation.OrderBy(x => x.Name).ToListAsync();
         }
-        public void Insert(Publisher obj)
+
+        public async Task InsertAsync(Congregation obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
+
     }
 }

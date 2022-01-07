@@ -21,10 +21,12 @@ namespace SecretaryWebMvc.Data
         {
             if (_context.Congregation.Any() ||
                  _context.Publisher.Any() ||
-                 _context.ActivitiesReport.Any())
+                 _context.ActivitiesReport.Any()||
+                  _context.User.Any())
             {
                 return; // DB has been seeded
             }
+            //Users u1 = new Users();
 
             Congregation c1 = new Congregation(1, "Jd Colorado", "Suzano", "SP");
    

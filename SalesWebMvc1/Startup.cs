@@ -29,6 +29,15 @@ namespace SecretaryWebMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAuthentication("Identity.Login")
+                .AddCookie("Identity.Login", config => { 
+                    config.Cookie.Name = "Identity.Login"; 
+                    config.LoginPath = "/Login"; 
+                    config.AccessDeniedPath = "/Home";
+                    config.ExpireTimeSpan = TimeSpan.FromHours(1);
+                    });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -47,6 +56,7 @@ namespace SecretaryWebMvc
             services.AddScoped<PublisherService>();
             services.AddScoped<CongregationService>();
             services.AddScoped<ActivitiesReportService>();
+            services.AddScoped<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,12 +86,13 @@ namespace SecretaryWebMvc
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

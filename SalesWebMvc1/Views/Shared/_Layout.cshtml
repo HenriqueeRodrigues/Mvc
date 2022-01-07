@@ -18,7 +18,7 @@
 </head>
 <body>
     <nav class="navbar navbar-inverse ">
-        <div class="container">
+        <div style="margin-left: 150px" >
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -28,16 +28,25 @@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Assistente Secretário</a>
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" style="margin-left : 250px" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Congregations" asp-action="Index">Congregação</a></li>
                     <li><a asp-area="" asp-controller="Publishers" asp-action="Index">Publicadores</a></li>
                     <li><a asp-area="" asp-controller="ActivitiesReports" asp-action="Index">Atividades</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Contact</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li style=" margin-left : 210px" >
+                            <a asp-area="" asp-controller="Login" asp-action="Logout"> Olá @User.Identity.Name | Sair</a>
+                        </li>
+
+                    }
                 </ul>
+
             </div>
         </div>
+
     </nav>
 
     <partial name="_CookieConsentPartial" />

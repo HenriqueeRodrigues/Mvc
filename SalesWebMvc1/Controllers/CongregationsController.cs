@@ -7,22 +7,39 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SecretaryWebMvc.Data;
 using SecretaryWebMvc.Models;
+using SecretaryWebMvc.Models.ViewModels;
+using SecretaryWebMvc.Services;
 
 namespace SecretaryWebMvc.Controllers
 {
     public class CongregationsController : Controller
     {
         private readonly SecretaryWebMvcContext _context;
+        private readonly CongregationService _CongregationService;
 
-        public CongregationsController(SecretaryWebMvcContext context)
+        public CongregationsController(SecretaryWebMvcContext context, CongregationService congregationService)
         {
             _context = context;
+            _CongregationService = congregationService;
         }
 
         // GET: Congregations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Congregation.ToListAsync());
+            if (User.Identity.IsAuthenticated)
+            {
+
+                return View(await _context.Congregation.ToListAsync());
+            }
+            else
+            {
+                return RedirectToAction("Index", "/Login");
+            }
+        }
+        public async Task<IActionResult> GoUser()
+        {
+                return RedirectToAction("Link", "/Login");
+            
         }
 
         // GET: Congregations/Details/5
@@ -47,7 +64,7 @@ namespace SecretaryWebMvc.Controllers
         public IActionResult Create()
         {
             return View();
-        }
+        }     
 
         // POST: Congregations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -64,6 +81,29 @@ namespace SecretaryWebMvc.Controllers
             }
             return View(Congregation);
         }
+
+
+
+
+
+
+        //public IActionResult Link()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Link([Bind("Id,Name")] Congregation Congregation)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(Congregation);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(Congregation);
+        //}
 
         // GET: Congregations/Edit/5
         public async Task<IActionResult> Edit(int? id)

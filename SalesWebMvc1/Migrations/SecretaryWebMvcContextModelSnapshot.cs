@@ -34,7 +34,7 @@ namespace SecretaryWebMvc.Migrations
 
                     b.Property<double>("Publications");
 
-                    b.Property<int?>("PublisherId");
+                    b.Property<int>("PublisherId");
 
                     b.Property<double>("Revisits");
 
@@ -95,11 +95,39 @@ namespace SecretaryWebMvc.Migrations
                     b.ToTable("Publisher");
                 });
 
+            modelBuilder.Entity("SecretaryWebMvc.Models.Users", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CongregationId");
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<bool?>("IsAdm");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CongregationId");
+
+                    b.ToTable("User");
+                });
+
             modelBuilder.Entity("SecretaryWebMvc.Models.ActivitiesReport", b =>
                 {
                     b.HasOne("SecretaryWebMvc.Models.Publisher", "Publisher")
                         .WithMany("Activities")
-                        .HasForeignKey("PublisherId");
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SecretaryWebMvc.Models.Publisher", b =>
@@ -108,6 +136,13 @@ namespace SecretaryWebMvc.Migrations
                         .WithMany("Publishers")
                         .HasForeignKey("CongregationId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SecretaryWebMvc.Models.Users", b =>
+                {
+                    b.HasOne("SecretaryWebMvc.Models.Congregation", "Congregation")
+                        .WithMany()
+                        .HasForeignKey("CongregationId");
                 });
 #pragma warning restore 612, 618
         }

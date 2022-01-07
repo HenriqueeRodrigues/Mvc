@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SecretaryWebMvc.Migrations
 {
-    public partial class dbPublisher : Migration
+    public partial class PRIMEIROADD : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,6 +51,29 @@ namespace SecretaryWebMvc.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(nullable: false),
+                    Nome = table.Column<string>(maxLength: 15, nullable: false),
+                    Senha = table.Column<string>(maxLength: 15, nullable: false),
+                    IsAdm = table.Column<bool>(nullable: true),
+                    CongregationId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_Congregation_CongregationId",
+                        column: x => x.CongregationId,
+                        principalTable: "Congregation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ActivitiesReport",
                 columns: table => new
                 {
@@ -64,7 +87,7 @@ namespace SecretaryWebMvc.Migrations
                     BibleStudies = table.Column<double>(nullable: false),
                     PlusHours = table.Column<double>(nullable: false),
                     Observation = table.Column<string>(nullable: true),
-                    PublisherId = table.Column<int>(nullable: true)
+                    PublisherId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,7 +97,7 @@ namespace SecretaryWebMvc.Migrations
                         column: x => x.PublisherId,
                         principalTable: "Publisher",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -86,12 +109,20 @@ namespace SecretaryWebMvc.Migrations
                 name: "IX_Publisher_CongregationId",
                 table: "Publisher",
                 column: "CongregationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_CongregationId",
+                table: "User",
+                column: "CongregationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "ActivitiesReport");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Publisher");

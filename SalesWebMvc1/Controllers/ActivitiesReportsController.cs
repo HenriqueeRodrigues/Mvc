@@ -15,21 +15,31 @@ namespace SecretaryWebMvc.Controllers
     {
         private readonly ActivitiesReportService _ActivitiesReportService;
         private readonly PublisherService _PublisherService;
+        private readonly UserService _UserService;
 
 
-        public ActivitiesReportsController(ActivitiesReportService activitiesReportService, PublisherService publisherService)
+        public ActivitiesReportsController(ActivitiesReportService activitiesReportService, PublisherService publisherService, UserService userService)
         {
             _ActivitiesReportService = activitiesReportService;
             _PublisherService = publisherService;
+            _UserService = userService;
         }
 
-        public async Task <IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            var list = await _ActivitiesReportService.FindAllAsync();
-            return View(list);
+            if (User.Identity.IsAuthenticated)
+            {
+
+                var list = await _ActivitiesReportService.FindAllAsync();
+                return View(list);
+            }
+            else
+            {
+                return RedirectToAction("Index", "/Login");
+            }
         }
 
-    
+
         public async Task<IActionResult> Create()
         {
             var publishers = await _PublisherService.FindAllAsync();

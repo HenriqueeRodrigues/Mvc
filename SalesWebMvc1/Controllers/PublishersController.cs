@@ -24,8 +24,16 @@ namespace SalesWebMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var list = await _PublisherService.FindAllAsync();
-            return View(list);
+            if (User.Identity.IsAuthenticated)
+            {
+
+                var list = await _PublisherService.FindAllAsync();
+                return View(list);
+            }
+            else
+            {
+                return RedirectToAction("Index", "/Login");
+            }
         }
 
         public async Task<IActionResult> Create()
@@ -124,6 +132,7 @@ namespace SalesWebMvc.Controllers
                 var viewModel = new PublisherFormViewModel { Publisher = Publisher, Congregations = Congregations };
                 return View(viewModel);
             }
+
             if (id != Publisher.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });

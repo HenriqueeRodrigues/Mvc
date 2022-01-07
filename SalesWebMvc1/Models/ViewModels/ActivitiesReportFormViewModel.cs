@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace SecretaryWebMvc.Models.ViewModels
 {
@@ -7,5 +8,7 @@ namespace SecretaryWebMvc.Models.ViewModels
         public ActivitiesReport ActivitiesReport { get; set; }
 
         public ICollection<Publisher> Publishers { get; set; }
+
+
     }
 }
