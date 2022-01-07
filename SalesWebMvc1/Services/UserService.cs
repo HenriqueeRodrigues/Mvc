@@ -31,6 +31,15 @@ namespace SecretaryWebMvc.Services
             return congregações;
         }
 
+        public async Task<List<Users>> GetAllAsync()
+        {
+            
+            var users =  await _context.User.Include(x => x.Congregation).ToListAsync();
+
+            return users;
+
+        }
+
         public async Task<Users> FindAllUsersAsync(string nome)
         {
             

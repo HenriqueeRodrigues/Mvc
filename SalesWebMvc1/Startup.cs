@@ -30,6 +30,14 @@ namespace SecretaryWebMvc
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddAuthentication("Cong.Cong")
+                .AddCookie("Cong.Cong", config => { 
+                    config.Cookie.Name = "Cong.Cong"; 
+                    config.LoginPath = "/Login"; 
+                    config.AccessDeniedPath = "/Home";
+                    config.ExpireTimeSpan = TimeSpan.FromHours(1);
+                    });
+
             services.AddAuthentication("Identity.Login")
                 .AddCookie("Identity.Login", config => { 
                     config.Cookie.Name = "Identity.Login"; 

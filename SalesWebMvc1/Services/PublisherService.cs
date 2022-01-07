@@ -12,15 +12,32 @@ namespace SecretaryWebMvc.Services
     public class PublisherService
     {
         private readonly SecretaryWebMvcContext _context;
+        private readonly UserService _UserService;
 
-        public PublisherService(SecretaryWebMvcContext context)
+        public PublisherService(SecretaryWebMvcContext context, UserService userService)
         {
             _context = context;
+            _UserService = userService;
         }
 
-        public async Task<List<Publisher>> FindAllAsync()
+        public async Task<List<Users>> FindAllUsersAsync()
         {
-            return await _context.Publisher.Include(x => x.Congregation).ToListAsync();
+            return await _UserService.GetAllAsync();
+        }
+
+        public async Task<List<Publisher>> FindAllPublisherAndCongregationAsync()
+        {
+           
+            return await _context.Publisher.Include(x => x.Congregation ).ToListAsync();
+        }
+
+        public async Task<List<Publisher>> FindAllAsync(Users userCurrent)
+        {
+            if (userCurrent.IsAdm == true)
+            {
+                return await _context.Publisher.Include(x => x.Congregation).ToListAsync();
+            }
+            return await _context.Publisher.Include(x => x.Congregation).Where(x => x.CongregationId == userCurrent.CongregationId).ToListAsync();
         }
 
         public async Task InsertAsync(Publisher obj)

@@ -29,8 +29,19 @@ namespace SecretaryWebMvc.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
 
-                var list = await _ActivitiesReportService.FindAllAsync();
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList(); // so o loogado
+
+                if (userLogado.Any(x => x.CongregationId == null))
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
+
+                }
+
+                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+
+                var list = await _ActivitiesReportService.FindAllAsync(usuarioLogadoObj);
                 return View(list);
             }
             else
@@ -42,7 +53,7 @@ namespace SecretaryWebMvc.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var publishers = await _PublisherService.FindAllAsync();
+            var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
             var viewModel = new ActivitiesReportFormViewModel { Publishers = publishers };
             return View(viewModel);
         }
@@ -53,7 +64,7 @@ namespace SecretaryWebMvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var publishers = await _PublisherService.FindAllAsync();
+                var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
                 var viewModel = new ActivitiesReportFormViewModel { ActivitiesReport = activitiesReport, Publishers = publishers };
                 return View(viewModel);
             }
@@ -122,7 +133,7 @@ namespace SecretaryWebMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
-            List<Publisher> publishers = await _PublisherService.FindAllAsync();
+            List<Publisher> publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
             ActivitiesReportFormViewModel viewModel = new ActivitiesReportFormViewModel { ActivitiesReport = obj, Publishers = publishers };
             return View(viewModel);
         }
@@ -133,7 +144,7 @@ namespace SecretaryWebMvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var publishers = await _PublisherService.FindAllAsync();
+                var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
                 var viewModel = new ActivitiesReportFormViewModel { ActivitiesReport = activitiesReport, Publishers = publishers };
                 return View(viewModel);
             }

@@ -21,7 +21,23 @@ namespace SecretaryWebMvc.Services
 
         public async Task<List<ActivitiesReport>> FindAllAsync()
         {
-            return await _context.ActivitiesReport.Include(x => x.Publisher).ToListAsync();
+
+           return await _context.ActivitiesReport.Include(x => x.Publisher).ToListAsync();
+        }
+
+        public async Task<List<ActivitiesReport>> FindAllAsync(Users userLoged)
+        {
+            if (userLoged.IsAdm == true)
+            {
+                return await _context.ActivitiesReport.Include(x => x.Publisher).ToListAsync();
+            }
+            return await _context.ActivitiesReport
+                .Include(x => x.Publisher)
+                .ThenInclude(x => x.Congregation)
+                    .Where(x => x.Publisher.CongregationId == userLoged.CongregationId).ToListAsync();
+
+
+           // return await _context.ActivitiesReport.Include(x => x.Publisher).Where().ToListAsync();
         }
 
         public async Task<List<ActivitiesReport>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)

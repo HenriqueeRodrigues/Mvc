@@ -26,8 +26,20 @@ namespace SalesWebMvc.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
 
-                var list = await _PublisherService.FindAllAsync();
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList(); // so o loogado
+
+                if (userLogado.Any(x => x.CongregationId == null))
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso aos publicadores de sua congregação." });
+
+                }
+
+                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+
+
+                var list = await _PublisherService.FindAllAsync(usuarioLogadoObj);
                 return View(list);
             }
             else

@@ -44,21 +44,24 @@ namespace SecretaryWebMvc.Controllers
             {
                 var idUser = 0;
                 var nameuser = "";
+  
                 foreach (var user in userActives)
                 {
                     idUser = user.Id;
                     nameuser = user.Nome;
-                    //congregationId = user.CongregationId;
+          
                 }
+
 
                 List<Claim> direitoacesso = new List<Claim>
                  {
                     new Claim(ClaimTypes.NameIdentifier, idUser.ToString()),
-                    new Claim(ClaimTypes.Name, nameuser.ToString()),
+                    new Claim(ClaimTypes.Name, nameuser.ToString() ),
 
                  };
 
                 var identity = new ClaimsIdentity(direitoacesso, "Identity.Login");
+
                 var userPrincipal = new ClaimsPrincipal(new[] { identity });
 
                 await HttpContext.SignInAsync(userPrincipal,
@@ -129,6 +132,7 @@ namespace SecretaryWebMvc.Controllers
         {
 
             var nomeVerificação = User.Identity.Name; // Estudar uma maneira melhor de pegar o id converter do claims
+            var sdsd = User.Claims; // Estudar uma maneira melhor de pegar o id converter do claims
 
 
             var cong = await _UserService.FindAllCongregationAsync();
