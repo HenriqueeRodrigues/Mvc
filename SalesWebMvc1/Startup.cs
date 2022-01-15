@@ -57,6 +57,7 @@ namespace SecretaryWebMvc
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<SecretaryWebMvcContext>(options =>
+                    //options.UseMySql(Configuration.GetConnectionString("SecretaryWebMvcContext"), builder =>
                     options.UseMySql(Configuration.GetConnectionString("SecretaryWebMvcContext"), builder =>
                         builder.MigrationsAssembly("SecretaryWebMvc")));
 
