@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SecretaryWebMvc.Models.ViewModels
 {
-    public class ActivitiesReportFormViewModel
+    public class ReportFormViewModel
     {
         public ActivitiesReport ActivitiesReport { get; set; }
 
@@ -11,6 +11,4 @@ namespace SecretaryWebMvc.Models.ViewModels
 
 
     }
-
-
 }

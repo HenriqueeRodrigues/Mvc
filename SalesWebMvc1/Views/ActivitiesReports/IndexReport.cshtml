@@ -1,0 +1,146 @@
+﻿@model IEnumerable<SecretaryWebMvc.Models.ActivitiesReport>
+@{
+    ViewData["Title"] = "Atividades Congregaconais";
+
+
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<br />
+
+
+
+<div class="container-fluid">
+    <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <div class="form-group">
+                <label>Os registros de qual mês vc deseja?</label>
+                <input type="date" class="form-control" name="Date" />
+
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+</div>
+<br/>
+<br/>
+<br/>
+
+
+<table class="table table-striped table-hover">
+
+    <thead>
+        <tr class="btn-primary bg-success">
+            <th>
+                <label>Mês</label>
+            </th>
+            <th>
+                <label>Publicações</label>
+            </th>
+            <th>
+                <label>Video</label>
+            </th>
+            <th>
+                <label>Horas</label>
+            </th>
+            <th>
+                <label>Revisitas</label>
+            </th>
+            <th>
+                <label>Estudos</label>
+            </th>
+            <th>
+                <label>Horas Adicionais</label>
+            </th>
+
+            <th>
+            </th>
+        </tr>
+    </thead>
+
+    @{
+        var henrique = true;
+    }
+
+    @if(!henrique)
+    {
+        
+
+            <tr>
+                <td>
+                    @Html.DisplayName(Model.Sum(x => x.Publications).ToString())
+                </td>
+                <td>
+                    @Html.DisplayName(Model.Sum( x => x.Publications).ToString())
+                </td>
+
+                <td>
+                    @Html.DisplayName(Model.Sum(x => x.Video).ToString())
+                </td>
+                <td>
+                    @Html.DisplayName(Model.Sum( x => x.Hours).ToString())
+                </td>
+                <td>
+                    @Html.DisplayName(Model.Sum(x => x.Revisits).ToString())
+                </td>
+                <td>
+                    @Html.DisplayName(Model.Sum(x => x.BibleStudies).ToString())
+                </td>
+                <td>
+                    @Html.DisplayName(Model.Sum(x => x.PlusHours).ToString())
+                </td>
+
+            </tr>
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        <label>MÊs</label>
+                    </dt>
+                    <dd>
+                        @Html.DisplayName(Model.Sum(x => x.Publications).ToString())
+                    </dd>
+                    <dt>
+                        <label>Publicações</label>
+                    </dt>
+                    <dd>
+                        @Html.DisplayName(Model.Sum( x => x.Publications).ToString())
+                    </dd>
+                    <dt>
+                        <label>Videos</label>
+                    </dt>
+                    <dd>
+                        @Html.DisplayName(Model.Sum(x => x.Video).ToString())
+                    </dd>
+                    <dt>
+                        <label>Horas</label>
+                    </dt>
+                    <dd>
+                        @Html.DisplayName(Model.Sum( x => x.Hours).ToString())
+                    </dd>
+                    <dt>
+                        <label>Revisitas</label>
+                    </dt>
+                    <dd>
+                        @Html.DisplayName(Model.Sum(x => x.Revisits).ToString())
+                    </dd>
+                    <dt>
+                        <label>Estudos</label>
+                    </dt>
+                    <dd>
+                        @Html.DisplayName(Model.Sum(x => x.BibleStudies).ToString())
+                    </dd>
+                    <dt>
+                        <label>Horas Adicionais</label>
+                    </dt>
+                    <dd>
+                        @Html.DisplayName(Model.Sum(x => x.PlusHours).ToString())
+                    </dd>
+                </dl>
+            
+    }
+
+
+
+
+</table>

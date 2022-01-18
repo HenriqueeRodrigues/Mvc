@@ -9,19 +9,15 @@ using SecretaryWebMvc.Services.Exceptions;
 
 namespace SecretaryWebMvc.Services
 {
-    public class ActivitiesReportService
+    public class ReportService
     {
         private readonly SecretaryWebMvcContext _context;
 
-        public ActivitiesReportService(SecretaryWebMvcContext context)
+        public ReportService(SecretaryWebMvcContext context)
         {
             _context = context;
         }
 
-        public async Task<ActivitiesReport> FindObjAsync()
-        {
-            return await _context.ActivitiesReport.Include(obj => obj.Publisher).FirstOrDefaultAsync();
-        }
 
         public async Task<List<ActivitiesReport>> FindAllAsync()
         {

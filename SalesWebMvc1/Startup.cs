@@ -65,6 +65,7 @@ namespace SecretaryWebMvc
             services.AddScoped<PublisherService>();
             services.AddScoped<CongregationService>();
             services.AddScoped<ActivitiesReportService>();
+            services.AddScoped<ReportService>();
             services.AddScoped<UserService>();
         }
 

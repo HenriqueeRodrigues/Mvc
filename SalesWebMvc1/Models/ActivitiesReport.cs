@@ -9,7 +9,7 @@ namespace SecretaryWebMvc.Models
     {
         public int Id { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyy}")]
         public DateTime Date { get; set; } 
 
 
@@ -26,6 +26,8 @@ namespace SecretaryWebMvc.Models
         public double PlusHours { get; set; }
 
         public string Observation { get; set; }
+
+        //public bool? PionerAux { get; set; }
 
         public  Publisher Publisher { get; set; }
 
