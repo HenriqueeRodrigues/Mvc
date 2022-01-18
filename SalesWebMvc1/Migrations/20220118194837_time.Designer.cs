@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecretaryWebMvc.Data;
 
 namespace SecretaryWebMvc.Migrations
 {
     [DbContext(typeof(SecretaryWebMvcContext))]
-    partial class SecretaryWebMvcContextModelSnapshot : ModelSnapshot
+    [Migration("20220118194837_time")]
+    partial class time
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,8 +31,6 @@ namespace SecretaryWebMvc.Migrations
                     b.Property<double>("Hours");
 
                     b.Property<string>("Observation");
-
-                    b.Property<bool?>("PionerAux");
 
                     b.Property<double>("PlusHours");
 

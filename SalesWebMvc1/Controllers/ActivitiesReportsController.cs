@@ -49,10 +49,18 @@ namespace SecretaryWebMvc.Controllers
                 return RedirectToAction("Index", "/Login");
             }
         }
-        public async Task<IActionResult> IndexReport()
+
+
+        [HttpPost]
+        public async Task<IActionResult> IndexReport([Bind("Date")] ActivitiesReport actives)
         {
+            if (actives.Date == DateTime.MinValue)
+            {
+                return View();
+            }
             if (User.Identity.IsAuthenticated)
             {
+
                 var user = await _PublisherService.FindAllUsersAsync(); // todos
 
                 var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList(); // so o loogado
@@ -65,8 +73,35 @@ namespace SecretaryWebMvc.Controllers
 
                 var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
 
-                var list = await _ActivitiesReportService.FindAllAsync(usuarioLogadoObj);
-                return View(list);
+                var listMonth = await _ActivitiesReportService.FindAllReporteMonthAsync(usuarioLogadoObj, actives.Date);
+
+                return View(listMonth);
+            }
+            else
+            {
+                return RedirectToAction("Index", "/Login");
+            }
+        }
+
+        public async Task<IActionResult> IndexReport()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
+
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList(); // so o loogado
+
+                if (userLogado.Any(x => x.CongregationId == null))
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
+
+                }
+
+                //var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+
+                //var list = await _ActivitiesReportService.FindAllAsync(usuarioLogadoObj);
+                return View();
             }
             else
             {

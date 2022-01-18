@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<SecretaryWebMvc.Models.ActivitiesReport>
+﻿@model IEnumerable<SecretaryWebMvc.Models.ActivitiesReport>
 @{
     ViewData["Title"] = "Atividades Ministeriais";
 }
@@ -78,7 +77,54 @@
                     @Html.DisplayFor(x => item.Observation)
                 </td>
                 <td>
-                    @Html.DisplayFor(x => item.Date.Month)
+                    @if (item.Date.Month == 1)
+                    {
+                        @Html.DisplayName("Janeiro")
+                    }
+                    @if (item.Date.Month == 2)
+                    {
+                        @Html.DisplayName("Fevereiro")
+                    }
+                    @if (item.Date.Month == 3)
+                    {
+                        @Html.DisplayName("Março")
+                    }
+                    @if (item.Date.Month == 4)
+                    {
+                        @Html.DisplayName("Abril")
+                    }
+                    @if (item.Date.Month == 5)
+                    {
+                        @Html.DisplayName("Maio")
+                    }
+                    @if (item.Date.Month == 6)
+                    {
+                        @Html.DisplayName("Junho")
+                    }
+                    @if (item.Date.Month == 7)
+                    {
+                        @Html.DisplayName("Julho")
+                    }
+                    @if (item.Date.Month == 8)
+                    {
+                        @Html.DisplayName("Agosto")
+                    }
+                    @if (item.Date.Month == 9)
+                    {
+                        @Html.DisplayName("Setembro")
+                    }
+                    @if (item.Date.Month == 10)
+                    {
+                        @Html.DisplayName("Outubro")
+                    }
+                    @if (item.Date.Month == 11)
+                    {
+                        @Html.DisplayName("Novembro")
+                    }
+                    @if (item.Date.Month == 12)
+                    {
+                        @Html.DisplayName("Dezembro")
+                    }
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>

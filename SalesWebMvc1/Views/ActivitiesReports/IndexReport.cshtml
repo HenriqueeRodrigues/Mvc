@@ -12,21 +12,51 @@
 
 
 <div class="container-fluid">
-    <form class="navbar-form navbar-left" role="search">
+    <form asp-action="IndexReport" class="navbar-form navbar-left" role="search">
         <div class="form-group">
             <div class="form-group">
-                <label>Os registros de qual mês vc deseja?</label>
-                <input type="date" class="form-control" name="Date" />
-
+                <label>Selecione o Mês desejado(Não se preocupe com o dia exato)</label>
+                <input type="date" class="form-control" name="Date" id="Date" />
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
 </div>
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
 
+@if (Model != null)
+{
+
+    <dl class="dl-horizontal">
+        <dt>
+            <label>Publicadores Ativos</label>
+        </dt>
+        <dd>
+        </dd>
+        <dt>
+            <label>Publicadores que relataram</label>
+        </dt>
+        <dd>
+            
+            @Html.DisplayForModel(Model.Count())
+        </dd>
+        <dt>
+            <label>Pioneiros Regulares</label>
+        </dt>
+      @*  <dd>
+            @Html.DisplayForModel(model => model.Where( x=> x.Publisher.Ispioneer == true).Count)
+        </dd>
+        <dt>
+            <label>Pioneiros Auxiliares</label>
+        </dt>
+        <dd>
+            @Html.DisplayForModel(model => model.Where( x=> x.PionerAux == true).Count)
+
+        </dd>*@
+    </dl>
+}
 
 <table class="table table-striped table-hover">
 
@@ -59,85 +89,85 @@
         </tr>
     </thead>
 
-    @{
-        var henrique = true;
-    }
-
-    @if(!henrique)
+    @if (Model != null)
     {
-        
+        <tr>
+            <td>
+                @{
+                    var months = Model.Where(x => x.Date != DateTime.MinValue);
+                    @if (months.Any(x => x.Date.Month == 1))
+                    {
+                        @Html.DisplayName("Janeiro")
+                    }
+                    @if (months.Any(x => x.Date.Month == 2))
+                    {
+                        @Html.DisplayName("Fevereiro")
+                    }
+                    @if (months.Any(x => x.Date.Month == 3))
+                    {
+                        @Html.DisplayName("Março")
+                    }
+                    @if (months.Any(x => x.Date.Month == 4))
+                    {
+                        @Html.DisplayName("Abril")
+                    }
+                    @if (months.Any(x => x.Date.Month == 5))
+                    {
+                        @Html.DisplayName("Maio")
+                    }
+                    @if (months.Any(x => x.Date.Month == 6))
+                    {
+                        @Html.DisplayName("Junho")
+                    }
+                    @if (months.Any(x => x.Date.Month == 7))
+                    {
+                        @Html.DisplayName("Julho")
+                    }
+                    @if (months.Any(x => x.Date.Month == 8))
+                    {
+                        @Html.DisplayName("Agosto")
+                    }
+                    @if (months.Any(x => x.Date.Month == 9))
+                    {
+                        @Html.DisplayName("Setembro")
+                    }
+                    @if (months.Any(x => x.Date.Month == 10))
+                    {
+                        @Html.DisplayName("Outubro")
+                    }
+                    @if (months.Any(x => x.Date.Month == 11))
+                    {
+                        @Html.DisplayName("Novembro")
+                    }
+                    @if (months.Any(x => x.Date.Month == 12))
+                    {
+                        @Html.DisplayName("Dezembro")
+                    }
+                }
 
-            <tr>
-                <td>
-                    @Html.DisplayName(Model.Sum(x => x.Publications).ToString())
-                </td>
-                <td>
-                    @Html.DisplayName(Model.Sum( x => x.Publications).ToString())
-                </td>
+            </td>
+            <td>
+                @Html.DisplayName(Model.Sum( x => x.Publications).ToString())
+            </td>
 
-                <td>
-                    @Html.DisplayName(Model.Sum(x => x.Video).ToString())
-                </td>
-                <td>
-                    @Html.DisplayName(Model.Sum( x => x.Hours).ToString())
-                </td>
-                <td>
-                    @Html.DisplayName(Model.Sum(x => x.Revisits).ToString())
-                </td>
-                <td>
-                    @Html.DisplayName(Model.Sum(x => x.BibleStudies).ToString())
-                </td>
-                <td>
-                    @Html.DisplayName(Model.Sum(x => x.PlusHours).ToString())
-                </td>
+            <td>
+                @Html.DisplayName(Model.Sum(x => x.Video).ToString())
+            </td>
+            <td>
+                @Html.DisplayName(Model.Sum( x => x.Hours).ToString())
+            </td>
+            <td>
+                @Html.DisplayName(Model.Sum(x => x.Revisits).ToString())
+            </td>
+            <td>
+                @Html.DisplayName(Model.Sum(x => x.BibleStudies).ToString())
+            </td>
+            <td>
+                @Html.DisplayName(Model.Sum(x => x.PlusHours).ToString())
+            </td>
 
-            </tr>
+        </tr>
 
-                <dl class="dl-horizontal">
-                    <dt>
-                        <label>MÊs</label>
-                    </dt>
-                    <dd>
-                        @Html.DisplayName(Model.Sum(x => x.Publications).ToString())
-                    </dd>
-                    <dt>
-                        <label>Publicações</label>
-                    </dt>
-                    <dd>
-                        @Html.DisplayName(Model.Sum( x => x.Publications).ToString())
-                    </dd>
-                    <dt>
-                        <label>Videos</label>
-                    </dt>
-                    <dd>
-                        @Html.DisplayName(Model.Sum(x => x.Video).ToString())
-                    </dd>
-                    <dt>
-                        <label>Horas</label>
-                    </dt>
-                    <dd>
-                        @Html.DisplayName(Model.Sum( x => x.Hours).ToString())
-                    </dd>
-                    <dt>
-                        <label>Revisitas</label>
-                    </dt>
-                    <dd>
-                        @Html.DisplayName(Model.Sum(x => x.Revisits).ToString())
-                    </dd>
-                    <dt>
-                        <label>Estudos</label>
-                    </dt>
-                    <dd>
-                        @Html.DisplayName(Model.Sum(x => x.BibleStudies).ToString())
-                    </dd>
-                    <dt>
-                        <label>Horas Adicionais</label>
-                    </dt>
-                    <dd>
-                        @Html.DisplayName(Model.Sum(x => x.PlusHours).ToString())
-                    </dd>
-                </dl>
-            
     }
 
 

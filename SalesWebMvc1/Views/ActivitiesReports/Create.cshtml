@@ -1,4 +1,5 @@
-﻿@model SecretaryWebMvc.Models.ViewModels.ActivitiesReportFormViewModel
+﻿@using SecretaryWebMvc.Models.Enums
+@model SecretaryWebMvc.Models.ViewModels.ActivitiesReportFormViewModel 
 
 @{
     ViewData["Title"] = "Adicionar";
@@ -56,11 +57,15 @@
                         <input asp-for="ActivitiesReport.Observation" class="form-control" />
                         <span asp-validation-for="ActivitiesReport.Observation" class="text-danger"></span>
                     </div>
+
+
                     <div class="form-group">
                         <label class="control-label">Mês</label>
                         <input asp-for="ActivitiesReport.Date" class="form-control" />
                         <span asp-validation-for="ActivitiesReport.Date" class="text-danger"></span>
                     </div>
+
+
                     <div class="form-group col-lg-6">
                         <br />
                         <div class="row">
@@ -75,5 +80,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }

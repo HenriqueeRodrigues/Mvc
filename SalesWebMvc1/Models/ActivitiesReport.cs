@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using SecretaryWebMvc.Models.Enums;
 
@@ -9,8 +10,12 @@ namespace SecretaryWebMvc.Models
     {
         public int Id { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyy}")]
-        public DateTime Date { get; set; } 
+
+        [Required(ErrorMessage = "{0} required")]
+        [Display(Name = "Mes do relatorio")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:/MM/yyyy}")]
+        public DateTime Date { get; set; }
 
 
         public double Publications { get; set; }
@@ -27,11 +32,16 @@ namespace SecretaryWebMvc.Models
 
         public string Observation { get; set; }
 
-        //public bool? PionerAux { get; set; }
+        public bool? PionerAux { get; set; }
 
         public  Publisher Publisher { get; set; }
+      
 
         public  int PublisherId { get; set; }
+
+        //public string Months { get; set; }
+
+        ////public int MonthsId { get; set; }
 
         public ActivitiesReport()
         {
@@ -46,7 +56,8 @@ namespace SecretaryWebMvc.Models
             double bibleStudies, 
             double plusHours, 
             string observation, 
-            Publisher publisher)
+            Publisher publisher
+           )
         {
             Id = id;
             Date = date;
