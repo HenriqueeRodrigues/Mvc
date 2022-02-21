@@ -41,6 +41,8 @@ namespace SecretaryWebMvc.Models
 
         public int CongregationId { get; set; }
 
+        public bool IsInactive { get; set; }
+
         public ICollection<ActivitiesReport> Activities { get; set; } = new List<ActivitiesReport>();
 
         public Publisher()
@@ -81,10 +83,10 @@ namespace SecretaryWebMvc.Models
             this.Activities.Remove(sr);
         }
 
-        public double TotalPublisher(DateTime init, DateTime final)
-        {
+        //public double TotalPublisher(DateTime init, DateTime final)
+        //{
 
-            return Activities.Where(x => x.Date >= init && x.Date <= final).Sum( y => y.Hours);
-        }
+        //    return Activities.Where(x => x.Date >= init && x.Date <= final).Sum( y => y.Hours);
+        //}
     }
 }

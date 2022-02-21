@@ -14,6 +14,7 @@ using SecretaryWebMvc.Data;
 using SecretaryWebMvc.Services;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using SecretaryWebMvc.Models;
 
 namespace SecretaryWebMvc
 {
@@ -64,6 +65,7 @@ namespace SecretaryWebMvc
             services.AddScoped<SeedingService>();//Sempre adicionar os novos serviços
             services.AddScoped<PublisherService>();
             services.AddScoped<CongregationService>();
+            services.AddScoped<AssistanceService>();
             services.AddScoped<ActivitiesReportService>();
             services.AddScoped<ReportService>();
             services.AddScoped<UserService>();

@@ -1,5 +1,5 @@
 ﻿@using SecretaryWebMvc.Models.Enums
-@model SecretaryWebMvc.Models.ViewModels.ActivitiesReportFormViewModel 
+@model SecretaryWebMvc.Models.ViewModels.ActivitiesReportFormViewModel
 
 @{
     ViewData["Title"] = "Adicionar";
@@ -20,24 +20,26 @@
                         <select asp-for="ActivitiesReport.PublisherId" asp-items="@(new SelectList(Model.Publishers,"Id","FullName"))" class="form-control"></select>
                     </div>
                     <div class="form-group">
+                        <label class="control-label">PUBLICADOR NÃO TEVE ATIVIDADES</label>
+                        <input type="checkbox" asp-for="ActivitiesReport.PublisherRelated" class="form-check-input " />
+                        <span asp-validation-for="ActivitiesReport.PublisherRelated" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
                         <label class="control-label">Publicações</label>
                         <input asp-for="ActivitiesReport.Publications" class="form-control" />
-                        <span asp-validation-for="ActivitiesReport.Publications" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Vídeo</label>
                         <input asp-for="ActivitiesReport.Video" class="form-control" />
-                        <span asp-validation-for="ActivitiesReport.Video" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Horas</label>
                         <input asp-for="ActivitiesReport.Hours" class="form-control" />
-                        <span asp-validation-for="ActivitiesReport.Hours" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Revisitas</label>
                         <input asp-for="ActivitiesReport.Revisits" class="form-control" />
-                        <span asp-validation-for="ActivitiesReport.Revisits" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -45,24 +47,27 @@
                     <div class="form-group">
                         <label class="control-label">Estudos</label>
                         <input asp-for="ActivitiesReport.BibleStudies" class="form-control" />
-                        <span asp-validation-for="ActivitiesReport.BibleStudies" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Horas Adicionais</label>
                         <input asp-for="ActivitiesReport.PlusHours" class="form-control" />
-                        <span asp-validation-for="ActivitiesReport.PlusHours" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Observação</label>
                         <input asp-for="ActivitiesReport.Observation" class="form-control" />
-                        <span asp-validation-for="ActivitiesReport.Observation" class="text-danger"></span>
                     </div>
 
 
                     <div class="form-group">
                         <label class="control-label">Mês</label>
-                        <input asp-for="ActivitiesReport.Date" class="form-control" />
+                        <input asp-for="ActivitiesReport.Date" type="month" class="form-control" />
                         <span asp-validation-for="ActivitiesReport.Date" class="text-danger"></span>
+                    </div>
+
+                         <div class="form-group">
+                        <label class="control-label">Pioneiro auxiliar</label>
+                        <input type="checkbox" asp-for="ActivitiesReport.IsPionerAux" class="form-check-input " />
+                        <span asp-validation-for="ActivitiesReport.IsPionerAux" class="text-danger"></span>
                     </div>
 
 

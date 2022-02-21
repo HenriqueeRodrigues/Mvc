@@ -34,7 +34,7 @@ namespace SecretaryWebMvc.Data
             Publisher p1 = new Publisher(1, "Bob Brown", "Rua 15 nº 2, Jd Brasil - Suzano CEP 0865-111", new DateTime(1998, 4, 21), new DateTime(2008, 4, 21),false,false,false,false, c1);
      
 
-           ActivitiesReport a1 = new ActivitiesReport(1,new DateTime(2022, 1, 2), 10, 2, 15,2, 0, 0, "teste", p1);
+           ActivitiesReport a1 = new ActivitiesReport(1,new DateTime(2022, 1, 2), 10, 2, 15,2, 0, 0, "teste",false, p1);
 
 
 

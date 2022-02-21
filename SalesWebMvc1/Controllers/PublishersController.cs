@@ -66,6 +66,7 @@ namespace SalesWebMvc.Controllers
                 return View(viewModel);
             }
             await _PublisherService.InsertAsync(Publisher);
+            await _CongregationService.FindAllCongregationforUpdateAsync(Publisher);
             return RedirectToAction(nameof(Index));
         }
 

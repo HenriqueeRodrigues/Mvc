@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SecretaryWebMvc.Models.Assistance>
+
+@{
+    ViewData["Title"] = "Congregação";
+
+}
+
+<h2>Assistencia a reunião</h2>
+<br />
+<br />
+<p>
+    <a asp-action="Assistance" class="btn btn-default bg-primary">Inserir Quantidade</a>
+</p>
+
+<br />
+
+<br />
+
+<div class="Col-md-6">
+
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="btn-primary bg-success ">
+            <th>
+                <label>Nome da Congregação</label>
+            </th>
+            <th>
+                <label>Data</label>
+            </th>
+            <th>
+                <label>Quantidade</label>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Congregation.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="DeleteBatch" class="btn btn-link alert-link"  method="post">Excluir todos registros anteriores a 3 messes atrás.</a>
+</p>
+</div>

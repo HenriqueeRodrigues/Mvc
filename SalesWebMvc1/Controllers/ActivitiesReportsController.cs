@@ -16,33 +16,65 @@ namespace SecretaryWebMvc.Controllers
         private readonly ActivitiesReportService _ActivitiesReportService;
         private readonly PublisherService _PublisherService;
         private readonly UserService _UserService;
+        private readonly AssistanceService _AssistanceService;
 
 
-        public ActivitiesReportsController(ActivitiesReportService activitiesReportService, PublisherService publisherService, UserService userService)
+        public ActivitiesReportsController(ActivitiesReportService activitiesReportService, PublisherService publisherService, UserService userService, AssistanceService _assistanceService)
         {
             _ActivitiesReportService = activitiesReportService;
             _PublisherService = publisherService;
             _UserService = userService;
+            _AssistanceService = _assistanceService;    
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(ActivitiesReport activitiesReport)
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = await _PublisherService.FindAllUsersAsync(); // todos
-
-                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList(); // so o loogado
-
-                if (userLogado.Any(x => x.CongregationId == null))
+                if (activitiesReport.Date == DateTime.MinValue)
                 {
-                    return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
+
+                    ActivitiesReport param = new ActivitiesReport();
+
+                    var userLogedCongregation = await this.GetUserLogadoAndCongregation(param);
+
+                    if (userLogedCongregation.Any(x => x.Publisher.CongregationId == default))
+                    {
+                        return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
+
+                    }
+
+
+                    return View(userLogedCongregation);
+                }
+                else
+                {
+                    if (activitiesReport.Date == DateTime.MinValue)
+                    {
+                        return View();
+                    }
+                    if (User.Identity.IsAuthenticated)
+                    {
+
+                        var activitiesLocal = await this.GetUserLogadoAndCongregation(activitiesReport);
+
+                        if (activitiesLocal.Any(x => x.Publisher.CongregationId == default))
+                        {
+                            return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
+
+                        }
+
+                        var viewlModel = activitiesLocal.Where(x => x.PublisherRelated == false);
+                        return View(viewlModel);
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "/Login");
+                    }
 
                 }
-
-                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
-
-                var list = await _ActivitiesReportService.FindAllAsync(usuarioLogadoObj);
-                return View(list);
+               
             }
             else
             {
@@ -52,7 +84,7 @@ namespace SecretaryWebMvc.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> IndexReport([Bind("Date")] ActivitiesReport actives)
+        public async Task<IActionResult> IndexReport([Bind("Date")] ActivitiesReport actives )
         {
             if (actives.Date == DateTime.MinValue)
             {
@@ -60,26 +92,55 @@ namespace SecretaryWebMvc.Controllers
             }
             if (User.Identity.IsAuthenticated)
             {
+                var userLogedCongregation = await this.GetUserLogadoAndCongregation(actives);
 
-                var user = await _PublisherService.FindAllUsersAsync(); // todos
+                var congId = userLogedCongregation.FirstOrDefault(x => x.Publisher.CongregationId != 0);
 
-                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList(); // so o loogado
+                var assistance = await _AssistanceService.FindCongregationLogged(congId.Publisher.CongregationId);
 
-                if (userLogado.Any(x => x.CongregationId == null))
-                {
-                    return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
+                var henrique = assistance.Where(x => x.Date.Month == actives.Date.Month).ToList();
 
-                }
 
-                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+                var viewModel = new ActivitiesReportFormViewModel { ActivitiesReports = userLogedCongregation, Assistances = (ICollection<Assistance>)henrique };
 
-                var listMonth = await _ActivitiesReportService.FindAllReporteMonthAsync(usuarioLogadoObj, actives.Date);
 
-                return View(listMonth);
+                //return View(userLogedCongregation); para a model
+                return View(viewModel);
             }
             else
             {
                 return RedirectToAction("Index", "/Login");
+            }
+        }
+
+
+        private async Task<List<ActivitiesReport>> GetUserLogadoAndCongregation(ActivitiesReport dateSearch)
+        {
+
+            if (dateSearch.Date != DateTime.MinValue)
+            {
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
+
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
+
+                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+
+                var listMonthResult = await _ActivitiesReportService.FindAllReporteMonthAsync(usuarioLogadoObj.Congregation.Id, dateSearch.Date);
+
+
+                return listMonthResult;
+
+            }
+            else {
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
+
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
+
+                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+
+                var list = await _ActivitiesReportService.FindAllAsync(usuarioLogadoObj.Congregation.Id); // Todas atividades
+
+                return list;
             }
         }
 
@@ -113,7 +174,25 @@ namespace SecretaryWebMvc.Controllers
         public async Task<IActionResult> Create()
         {
             var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
-            var viewModel = new ActivitiesReportFormViewModel { Publishers = publishers };
+
+            var user = await _PublisherService.FindAllUsersAsync(); // todos
+
+            var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList(); // so o loogado
+
+            var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+
+
+            List<Publisher>pub = new List<Publisher>();
+
+            foreach (var item in publishers)
+            {
+                if (item.CongregationId == usuarioLogadoObj.CongregationId)
+                {
+                    pub.Add(item);
+                }
+            }
+
+            var viewModel = new ActivitiesReportFormViewModel { Publishers = pub };
             return View(viewModel);
         }
 
@@ -125,6 +204,7 @@ namespace SecretaryWebMvc.Controllers
             {
                 var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
                 var viewModel = new ActivitiesReportFormViewModel { ActivitiesReport = activitiesReport, Publishers = publishers };
+                
                 return View(viewModel);
             }
             await _ActivitiesReportService.InsertAsync(activitiesReport);
@@ -263,5 +343,42 @@ namespace SecretaryWebMvc.Controllers
             };
             return View(viewModel);
         }
+
+        public async Task<IActionResult> SumAssistance()
+        {
+            return RedirectToAction("Assistance", "/Assistance");
+        }
+
+
+        public async Task<IActionResult> DeleteBatch()
+        {
+            await this.DeleteBatchAction();
+            return RedirectToAction(nameof(Index));
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteBatchAction()
+        {
+            try
+            {
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
+
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
+
+                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+
+                await _ActivitiesReportService.RemoveBatchAsync(usuarioLogadoObj.CongregationId);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
+        }
+
+
     }
 }

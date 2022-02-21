@@ -9,8 +9,23 @@
 <br />
 <p>
     <a asp-action="Create" class="btn btn-default bg-primary">Adicionar Atividades</a>
+    <a asp-action="SumAssistance" class="btn btn-default bg-primary">Assistência Reunião</a>
 </p>
 <br />
+<br />
+
+<div class="container-fluid">
+    <form asp-action="Index" class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <div class="form-group">
+                <label>Pesquise por Mês</label>
+                <input type="month" class="form-control" name="Date" id="Date" style="margin-left: 20px;" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default" style="margin-left: 15px;">Buscar</button>
+        <button type="submit" class="btn btn-primary" style="margin-left: 30px;">Voltar com todos os registros</button>
+    </form>
+</div>
 <br />
 
 <table class="table table-striped table-hover">
@@ -136,3 +151,7 @@
     </tbody>
 
 </table>
+
+<p>
+    <a asp-action="DeleteBatch" class="btn btn-link alert-link"  method="post">Excluir todos registros anteriores a 1 ano atrás.</a>
+</p>

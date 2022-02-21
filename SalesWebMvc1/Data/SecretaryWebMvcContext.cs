@@ -18,5 +18,6 @@ namespace SecretaryWebMvc.Data
         public DbSet<Publisher> Publisher { get; set; }
         public DbSet<ActivitiesReport>ActivitiesReport { get; set; }
         public DbSet<Users> User { get; set; }
+        public DbSet<Assistance> Assistance{ get; set; }
     }
 }

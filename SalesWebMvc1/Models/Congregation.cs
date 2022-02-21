@@ -18,7 +18,7 @@ namespace SecretaryWebMvc.Models
 
         public ICollection<Publisher> Publishers { get; set; } = new List<Publisher>();
 
-        //public Users Users { get; set; }
+        public int SumPublishers { get; set; } 
 
         //public int? UserId { get; set; }
 
@@ -40,10 +40,10 @@ namespace SecretaryWebMvc.Models
             this.Publishers.Add(Publisher);
         }
 
-        public double TotalPublishers(DateTime init, DateTime final)
-        {
+        //public double TotalPublishers(DateTime init, DateTime final)
+        //{
 
-            return Publishers.Sum(y => y.TotalPublisher(init, final));
-        }
+        //    return Publishers.Sum(y => y.TotalPublisher(init, final));
+        //}
     }
 }

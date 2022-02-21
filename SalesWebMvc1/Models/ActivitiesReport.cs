@@ -17,31 +17,29 @@ namespace SecretaryWebMvc.Models
         [DisplayFormat(DataFormatString = "{0:/MM/yyyy}")]
         public DateTime Date { get; set; }
 
+        public double? Publications { get; set; }
 
-        public double Publications { get; set; }
+        public double? Video { get; set; }
 
-        public double Video { get; set; }
+        public double? Hours { get; set; }
 
-        public double Hours { get; set; }
+        public double? Revisits { get; set; }
 
-        public double Revisits { get; set; }
+        public double? BibleStudies { get; set; }
 
-        public double BibleStudies { get; set; }
-
-        public double PlusHours { get; set; }
+        public double? PlusHours { get; set; }
 
         public string Observation { get; set; }
 
-        public bool? PionerAux { get; set; }
+        public bool IsPionerAux { get; set; }
 
         public  Publisher Publisher { get; set; }
-      
 
-        public  int PublisherId { get; set; }
+        public  int? PublisherId { get; set; }
 
-        //public string Months { get; set; }
+        public bool PublisherRelated { get; set; }
 
-        ////public int MonthsId { get; set; }
+        //public int MonthsId { get; set; }
 
         public ActivitiesReport()
         {
@@ -56,6 +54,7 @@ namespace SecretaryWebMvc.Models
             double bibleStudies, 
             double plusHours, 
             string observation, 
+            bool isPionerAux,
             Publisher publisher
            )
         {
@@ -68,6 +67,7 @@ namespace SecretaryWebMvc.Models
             BibleStudies = bibleStudies;
             PlusHours = plusHours;
             Observation = observation;
+            IsPionerAux = isPionerAux;
             Publisher = publisher;
         }
     }

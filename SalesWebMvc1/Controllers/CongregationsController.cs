@@ -14,13 +14,17 @@ namespace SecretaryWebMvc.Controllers
 {
     public class CongregationsController : Controller
     {
+
         private readonly SecretaryWebMvcContext _context;
         private readonly CongregationService _CongregationService;
+        private readonly PublisherService _PublisherService;
+        private readonly ActivitiesReportService _ActivitiesReportService;
 
-        public CongregationsController(SecretaryWebMvcContext context, CongregationService congregationService)
+        public CongregationsController(SecretaryWebMvcContext context, CongregationService congregationService, PublisherService publisherService, ActivitiesReportService _ActivitiesReportService)
         {
             _context = context;
             _CongregationService = congregationService;
+            _PublisherService = publisherService;
         }
 
         // GET: Congregations
@@ -28,8 +32,18 @@ namespace SecretaryWebMvc.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
 
-                return View(await _context.Congregation.ToListAsync());
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
+
+                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+
+                var allcong = await _CongregationService.FindAllAsync();
+
+                var filterCongregationLocal = allcong.Where(x => x.Id == usuarioLogadoObj.CongregationId);
+
+
+                return View(filterCongregationLocal);
             }
             else
             {
@@ -38,9 +52,10 @@ namespace SecretaryWebMvc.Controllers
         }
         public async Task<IActionResult> GoUser()
         {
-                return RedirectToAction("Link", "/Login");
-            
+            return RedirectToAction("Link", "/Login");
+
         }
+
 
         // GET: Congregations/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -64,48 +79,24 @@ namespace SecretaryWebMvc.Controllers
         public IActionResult Create()
         {
             return View();
-        }     
+        }
 
         // POST: Congregations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,City,State")] Congregation Congregation)
+        public async Task<IActionResult> Create([Bind("Id,Name,City,State")] Congregation congregation)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(Congregation);
+                _context.Add(congregation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(Congregation);
+            return View(congregation);
         }
 
-
-
-
-
-
-        //public IActionResult Link()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Link([Bind("Id,Name")] Congregation Congregation)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(Congregation);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(Congregation);
-        //}
-
-        // GET: Congregations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

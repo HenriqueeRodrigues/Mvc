@@ -22,31 +22,55 @@ namespace SecretaryWebMvc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double>("BibleStudies");
+                    b.Property<int?>("AssistanceId");
+
+                    b.Property<double?>("BibleStudies");
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<double>("Hours");
+                    b.Property<double?>("Hours");
+
+                    b.Property<bool>("IsPionerAux");
 
                     b.Property<string>("Observation");
 
-                    b.Property<bool?>("PionerAux");
+                    b.Property<double?>("PlusHours");
 
-                    b.Property<double>("PlusHours");
+                    b.Property<double?>("Publications");
 
-                    b.Property<double>("Publications");
+                    b.Property<int?>("PublisherId");
 
-                    b.Property<int>("PublisherId");
+                    b.Property<bool>("PublisherRelated");
 
-                    b.Property<double>("Revisits");
+                    b.Property<double?>("Revisits");
 
-                    b.Property<double>("Video");
+                    b.Property<double?>("Video");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssistanceId");
 
                     b.HasIndex("PublisherId");
 
                     b.ToTable("ActivitiesReport");
+                });
+
+            modelBuilder.Entity("SecretaryWebMvc.Models.Assistance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CongregationId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CongregationId");
+
+                    b.ToTable("Assistance");
                 });
 
             modelBuilder.Entity("SecretaryWebMvc.Models.Congregation", b =>
@@ -59,6 +83,8 @@ namespace SecretaryWebMvc.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("State");
+
+                    b.Property<int>("SumPublishers");
 
                     b.HasKey("Id");
 
@@ -83,6 +109,8 @@ namespace SecretaryWebMvc.Migrations
                     b.Property<bool>("IsAnointed");
 
                     b.Property<bool>("IsElder");
+
+                    b.Property<bool>("IsInactive");
 
                     b.Property<bool>("IsMinisterialServant");
 
@@ -126,9 +154,20 @@ namespace SecretaryWebMvc.Migrations
 
             modelBuilder.Entity("SecretaryWebMvc.Models.ActivitiesReport", b =>
                 {
+                    b.HasOne("SecretaryWebMvc.Models.Assistance", "Assistance")
+                        .WithMany()
+                        .HasForeignKey("AssistanceId");
+
                     b.HasOne("SecretaryWebMvc.Models.Publisher", "Publisher")
                         .WithMany("Activities")
-                        .HasForeignKey("PublisherId")
+                        .HasForeignKey("PublisherId");
+                });
+
+            modelBuilder.Entity("SecretaryWebMvc.Models.Assistance", b =>
+                {
+                    b.HasOne("SecretaryWebMvc.Models.Congregation", "Congregation")
+                        .WithMany()
+                        .HasForeignKey("CongregationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
