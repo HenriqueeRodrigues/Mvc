@@ -1,65 +1,68 @@
-﻿@model SecretaryWebMvc.Models.Publisher
+﻿@model SecretaryWebMvc.Models.ViewModels.PublisherFormViewModel
 
     <h3>
-        Você realmente deseja excluir o publicador:
-        @Html.DisplayFor(model => model.FullName) ?
+        Você realmente deseja <br />excluir o publicador:
+        @Html.DisplayFor(model => model.Publisher.FullName)? </br>
+        Todas as atividades relacionadas a ele será excluída também
     </h3>
 
-<div>
+<div class="col-md-4">
     <hr />
     <dl class="dl-horizontal">
         <dt>
            <label>Nome</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.FullName)
+            @Html.DisplayFor(model => model.Publisher.FullName)
+
+         
         </dd>
         <dt>
             <label>Endereço</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.SimpleAddress)
+            @Html.DisplayFor(model => model.Publisher.SimpleAddress)
         </dd>
         <dt>
             <label>Data Nascimento</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BirthDate)
+            @Html.DisplayFor(model => model.Publisher.BirthDate)
         </dd>
         <dt>
             <label>Data Batismo</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BaptismDate)
+            @Html.DisplayFor(model => model.Publisher.BaptismDate)
         </dd>
         <dt>
             <label>Ungido</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IsAnointed)
+            @Html.DisplayFor(model => model.Publisher.IsAnointed)
         </dd>
         <dt>
             <label>Ancião</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IsElder)
+            @Html.DisplayFor(model => model.Publisher.IsElder)
         </dd>
         <dt>
             <label>Servo Ministerial</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IsMinisterialServant)
+            @Html.DisplayFor(model => model.Publisher.IsMinisterialServant)
         </dd>
         <dt>
             <label>Pioneiro</label>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Ispioneer)
+            @Html.DisplayFor(model => model.Publisher.Ispioneer)
         </dd>
     </dl>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Publisher.Id" />
         <input type="submit" value="Delete" class="btn btn-danger" />
         <a asp-action="Index">Back to List</a>
     </form>

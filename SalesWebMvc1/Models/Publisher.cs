@@ -43,6 +43,8 @@ namespace SecretaryWebMvc.Models
 
         public bool IsInactive { get; set; }
 
+        public DateTime? LastActivitiesRelated { get; set; }
+
         public ICollection<ActivitiesReport> Activities { get; set; } = new List<ActivitiesReport>();
 
         public Publisher()

@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <input type="hidden" asp-for="Publisher.Id" />
+            <input type="hidden" asp-for="Publisher.LastActivitiesRelated" />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -52,6 +53,11 @@
                 <label class="control-label">Servo Ministerial</label>
                 <input type="checkbox" asp-for="Publisher.IsMinisterialServant" class="form-check-input " />
                 <span asp-validation-for="Publisher.IsMinisterialServant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Pioneiro Regular</label>
+                <input type="checkbox" asp-for="Publisher.Ispioneer" class="form-check-input " />
+                <span asp-validation-for="Publisher.Ispioneer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Congregação</label>

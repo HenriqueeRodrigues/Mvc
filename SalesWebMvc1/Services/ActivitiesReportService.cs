@@ -66,31 +66,16 @@ namespace SecretaryWebMvc.Services
             {
                 if (item.Publisher.CongregationId == congUserLoged &&
                     item.Date.Month == reportMonth?.Date.Month &&
-                    item.Date.Year == reportMonth?.Date.Year /*&&*/
-                    /*item.Assistance.Date.*/)
+                    item.Date.Year == reportMonth?.Date.Year )
                 {
                     listResult.Add(item);
                 }
             }
-
             return listResult;
 
             // return await _context.ActivitiesReport.Include(x => x.Publisher).Where().ToListAsync();
         }
-        public async Task<ActivitiesReport> FindAllOneAsync(Users userLoged)
-        {
-            if (userLoged.IsAdm == true)
-            {
-                //return await _context.ActivitiesReport.Include(x => x.Publisher).ToListAsync();
-            }
-            return await _context.ActivitiesReport
-                .Include(x => x.Publisher)
-                .ThenInclude(x => x.Congregation)
-                    .FirstOrDefaultAsync(x => x.Publisher.CongregationId == userLoged.CongregationId);
 
-
-            // return await _context.ActivitiesReport.Include(x => x.Publisher).Where().ToListAsync();
-        }
         public async Task<List<ActivitiesReport>> FindAllAsync(int congUserLoged)
         {
             List<ActivitiesReport> listResult = new List<ActivitiesReport>();
@@ -111,6 +96,22 @@ namespace SecretaryWebMvc.Services
             return listResult;
 
         }
+
+        public async Task<ActivitiesReport> FindAllOneAsync(Users userLoged)
+        {
+            if (userLoged.IsAdm == true)
+            {
+                //return await _context.ActivitiesReport.Include(x => x.Publisher).ToListAsync();
+            }
+            return await _context.ActivitiesReport
+                .Include(x => x.Publisher)
+                .ThenInclude(x => x.Congregation)
+                    .FirstOrDefaultAsync(x => x.Publisher.CongregationId == userLoged.CongregationId);
+
+
+            // return await _context.ActivitiesReport.Include(x => x.Publisher).Where().ToListAsync();
+        }
+       
 
         public async Task<List<ActivitiesReport>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
@@ -134,6 +135,11 @@ namespace SecretaryWebMvc.Services
         {
             _context.Add(obj);
             await _context.SaveChangesAsync();
+            var updatePublisherrelated = await _PublisherService.FindAllPublisherAndCongregationAsync();
+            var publisherParams = updatePublisherrelated.FirstOrDefault(x => x.Id == obj.PublisherId);
+
+            publisherParams.LastActivitiesRelated = DateTime.Today;
+            await _PublisherService.UpdateAsync(publisherParams);
         }
 
         public async Task<ActivitiesReport> FindByIdAsync(int id)
@@ -157,6 +163,7 @@ namespace SecretaryWebMvc.Services
 
         public async Task UpdateAsync(ActivitiesReport obj)
         {
+
             bool hasAny = await _context.ActivitiesReport.AnyAsync(x => x.Id == obj.Id);
             if (!hasAny)
             {

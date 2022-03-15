@@ -28,7 +28,7 @@ namespace SecretaryWebMvc.Services
         public async Task<List<Assistance>> FindCongregationLogged(int congregationId)
         {
 
-            return await _context.Assistance.Where(x=> x.CongregationId == congregationId).ToListAsync();
+            return await _context.Assistance.Where(x => x.CongregationId == congregationId).ToListAsync();
 
         }
 
@@ -57,6 +57,21 @@ namespace SecretaryWebMvc.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task RemoveIdAsync(int assistanceId)
+        {
+            try
+            {
+                var obj = await _context.Assistance.Include(x => x.Congregation).ToListAsync();
+
+                _context.Assistance.Remove(obj.FirstOrDefault(x => x.Id == assistanceId));
+                await _context.SaveChangesAsync();
+
+            }
+            catch (DbUpdateException e)
+            {
+                throw new IntegrityException("Can't delete Publisher because he/she has congregation");
+            }
+        }
         public async Task RemoveAsync(int? congregationId)
         {
             try
@@ -72,7 +87,7 @@ namespace SecretaryWebMvc.Services
                 datafim = datafim.AddMonths(-3);
 
 
-                var Henrique = obj.Where(x => x.Date < datafim).ToList();    
+                var Henrique = obj.Where(x => x.Date < datafim).ToList();
 
 
                 foreach (var item in Henrique)

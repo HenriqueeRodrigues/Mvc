@@ -62,7 +62,7 @@ namespace SecretaryWebMvc
                     options.UseMySql(Configuration.GetConnectionString("SecretaryWebMvcContext"), builder =>
                         builder.MigrationsAssembly("SecretaryWebMvc")));
 
-            services.AddScoped<SeedingService>();//Sempre adicionar os novos serviços
+           // services.AddScoped<SeedingService>();//Sempre adicionar os novos serviços
             services.AddScoped<PublisherService>();
             services.AddScoped<CongregationService>();
             services.AddScoped<AssistanceService>();
@@ -72,7 +72,7 @@ namespace SecretaryWebMvc
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingservice)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env /*SeedingService seedingservice*/)
         {
             var enUs = new CultureInfo("en-Us");
             var localizationOptions = new RequestLocalizationOptions
@@ -87,7 +87,7 @@ namespace SecretaryWebMvc
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                seedingservice.Seed();
+                //seedingservice.Seed();
             }
             else
             {

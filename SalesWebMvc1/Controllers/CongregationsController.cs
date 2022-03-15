@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using SecretaryWebMvc.Data;
 using SecretaryWebMvc.Models;
 using SecretaryWebMvc.Models.ViewModels;
 using SecretaryWebMvc.Services;
+using SecretaryWebMvc.Services.Exceptions;
 
 namespace SecretaryWebMvc.Controllers
 {
@@ -40,7 +42,20 @@ namespace SecretaryWebMvc.Controllers
 
                 var allcong = await _CongregationService.FindAllAsync();
 
-                var filterCongregationLocal = allcong.Where(x => x.Id == usuarioLogadoObj.CongregationId);
+
+                if (usuarioLogadoObj == null)
+                {
+                    if (allcong.Count() > 1)
+                    {
+                        var viewToNewUser1 = allcong.FirstOrDefault();
+
+                        return View(viewToNewUser1);
+                    }
+                    var viewToNewUser = allcong.LastOrDefault();
+
+                    return View(viewToNewUser);
+                }
+                var filterCongregationLocal = allcong.FirstOrDefault(x => x.Id == usuarioLogadoObj.CongregationId);
 
 
                 return View(filterCongregationLocal);
@@ -117,7 +132,7 @@ namespace SecretaryWebMvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Congregation Congregation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,City,State,SumPublishers")] Congregation Congregation)
         {
             if (id != Congregation.Id)
             {
@@ -170,10 +185,34 @@ namespace SecretaryWebMvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var Congregation = await _context.Congregation.FindAsync(id);
-            _context.Congregation.Remove(Congregation);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var publisherForDelete = _context.Publisher.Where(x => x.CongregationId == id);
+            //foreach (var item in publisherForDelete)
+            //{
+            //    _context.Publisher.Remove(item);
+            //    await _context.SaveChangesAsync();
+
+            //}
+            try
+            {
+                var Congregation = await _context.Congregation.FindAsync(id);
+                _context.Congregation.Remove(Congregation);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = $"Você não pode excluir essa congregação por que existem {publisherForDelete.Count()} publicadores relacionado a ela. Excluia todos primeiro" });
+            }
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
 
         private bool CongregationExists(int id)

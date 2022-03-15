@@ -19,38 +19,40 @@
 
 @if (Model != null)
 {
-    var sumPublisher = @Model.ActivitiesReports.FirstOrDefault(x => x.Publisher.Congregation.SumPublishers > 0);
-
-    var assistanceFds = @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday);
+    var sumPublisher = @Model.ActivitiesReports.FirstOrDefault(x => x.Publisher.Congregation.SumPublishers > 0 );
+    if (Model.Assistances != null)
+    {
+        var assistanceFds = @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday);
+    }
 
     if (sumPublisher != null)
     {
         <table style="background-color:lavender;">
-                <dl class="row">
-                    <dt class="col-md-3">
-                        <label>Congregação: @sumPublisher.Publisher.Congregation.Name </label>
-                        <label>Total de Publicadores: @sumPublisher.Publisher.Congregation.SumPublishers  </label>
-                        <label>Publicadores Inativos : @Model.ActivitiesReports.Where(x => x.PublisherRelated == true).Count()</label>
-                    </dt>
-                    <dt class="col-md-3">
-                        <label>Publicadores que relataram : @Model.ActivitiesReports.Count()</label>
-                        <label>Pioneiros Regulares : @Model.ActivitiesReports.Where(x => x.Publisher.Ispioneer == true).Count()</label>
-                        <label>Pioneiros Auxiliares : @Model.ActivitiesReports.Where(x => x.IsPionerAux).Count()</label>
-                    </dt>
-
-                    <dt class="col-md-3">
-                        <label>Assistência as Reuniões</label>
-                        <label>Meio de Semana : @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday || x.Date.DayOfWeek == DayOfWeek.Thursday  ).Sum(x => x.Quantity)</label> <br />
-                        <label>Fim de semana : @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Saturday ||  x.Date.DayOfWeek == DayOfWeek.Saturday ).Sum(x => x.Quantity)</label>
-                    </dt>
-                </dl>
+            <dl class="row">
+                <dt class="col-md-3">
+                    <label>Congregação: @sumPublisher.Publisher.Congregation.Name </label>
+                    <label>Total de Publicadores: @sumPublisher.Publisher.Congregation.SumPublishers  </label>
+                    <label>Publicadores Irregulares : @Model.ActivitiesReports.Where(x => x.PublisherRelated == true).Count()</label>
+                </dt>
+                <dt class="col-md-3">
+                    <label>Publicadores que relataram : @Model.ActivitiesReports.Where(x => x.PublisherRelated == false).Count()</label>
+                    <label>Pioneiros Regulares : @Model.ActivitiesReports.Where(x => x.Publisher.Ispioneer == true).Count()</label>
+                    <label>Pioneiros Auxiliares : @Model.ActivitiesReports.Where(x => x.IsPionerAux).Count()</label>
+                </dt>
+            
+                <dt class="col-md-3">
+                    <label>Assistência as Reuniões</label>
+                    <label>Meio de Semana : @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday || x.Date.DayOfWeek == DayOfWeek.Thursday  ).Sum(x => x.Quantity)</label> <br />
+                    <label>Fim de semana : @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Saturday ||  x.Date.DayOfWeek == DayOfWeek.Sunday ).Sum(x => x.Quantity)</label>
+                </dt>
+            </dl>
         </table>
     }
-
 
     <table class="table table-striped table-hover">
 
         <label>Publicadores</label>
+
         <thead>
             <tr class="btn-primary bg-success">
                 <th>

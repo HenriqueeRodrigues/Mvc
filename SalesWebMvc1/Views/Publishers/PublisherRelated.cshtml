@@ -1,0 +1,70 @@
+﻿@model SecretaryWebMvc.Models.ViewModels.PublisherFormViewModel
+
+
+@{
+    ViewData["Title"] = "Publicadores que ainda não entregaram seus relatórios";
+}
+
+<h2> @ViewData["Title"]</h2>
+
+<br />
+<br />
+<br />
+<div class="col-md-12">
+
+    <table class=" col-md-6 ">
+        <thead>
+            <tr>
+                <th>
+                    @{
+                        string quantityNotRelated = string.Empty;
+
+                        if (Model.Publishers.Count() == 0)
+                        {
+                            <h4 style="color:darkred">Todos os publicadores já entregaram suas atividades ou já foi colocado como Irregular</h4>
+                        }
+                        else
+                        {
+                            <h4 class="control-label"> Publicadores que ainda não entregaram seu relatório : <label style="color:dodgerblue">@Model.Publishers.Count().ToString()</label>
+                            </h4>
+                        }
+                    }
+
+
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+
+                    <select asp-for="Publisher.Id" asp-items="@(new SelectList(Model.Publishers,"Id","FullName"))" class="form-control">
+                        <option disabled selected>Publicadores</option>
+
+                    </select>
+
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+    <br/>
+    <br/>
+</div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+<a asp-action="RedirectToIndexReport">Voltar a lista</a>
+    <br/>
+    <br/>
+
+
+
+
+

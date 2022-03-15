@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SecretaryWebMvc.Data;
 
 namespace SecretaryWebMvc.Migrations
 {
     [DbContext(typeof(SecretaryWebMvcContext))]
-    partial class SecretaryWebMvcContextModelSnapshot : ModelSnapshot
+    [Migration("20220227224120_newDbPraValer")]
+    partial class newDbPraValer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,8 +114,6 @@ namespace SecretaryWebMvc.Migrations
 
                     b.Property<bool>("Ispioneer");
 
-                    b.Property<DateTime?>("LastActivitiesRelated");
-
                     b.Property<string>("SimpleAddress");
 
                     b.HasKey("Id");
@@ -137,7 +137,7 @@ namespace SecretaryWebMvc.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(15);
 
                     b.Property<string>("Senha")
                         .IsRequired()

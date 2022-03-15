@@ -14,10 +14,12 @@ namespace SecretaryWebMvc.Services
     {
         private readonly SecretaryWebMvcContext _context;
 
+
         public CongregationService(SecretaryWebMvcContext context)
         {
             _context = context;
         }
+
 
         //public async Task FindAllCongregationforAttAsync(Publisher publisher)
         //{
@@ -37,6 +39,14 @@ namespace SecretaryWebMvc.Services
         {
             var congregationUpdate = await _context.Congregation.FirstOrDefaultAsync(x => x.Id == publisher.CongregationId);
             congregationUpdate.SumPublishers = congregationUpdate.SumPublishers + 1;
+            _context.Update(congregationUpdate);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemovePublisherCongregationforUpdateAsync(Publisher congregation)
+        {
+            var congregationUpdate = await _context.Congregation.FirstOrDefaultAsync(x => x.Id == congregation.CongregationId);
+            congregationUpdate.SumPublishers = congregationUpdate.SumPublishers - 1;
             _context.Update(congregationUpdate);
             await _context.SaveChangesAsync();
         }

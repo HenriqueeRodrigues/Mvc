@@ -18,7 +18,7 @@ namespace SecretaryWebMvc.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "{0} Obrigatório")]
-        [StringLength(15, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve ser no mínimo {2}")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "O tamanho do {0} deve ser no mínimo {2} e no maximo {1}")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "{0} Obrigatório")]

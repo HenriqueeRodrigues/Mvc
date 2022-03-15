@@ -40,7 +40,10 @@ namespace SalesWebMvc.Controllers
 
 
                 var list = await _PublisherService.FindAllAsync(usuarioLogadoObj);
-                return View(list);
+
+                var viewModel = new PublisherFormViewModel { Publishers = list };
+
+                return View(viewModel);
             }
             else
             {
@@ -83,16 +86,24 @@ namespace SalesWebMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
-            return View(obj);
-        }
+            var viewModel = new PublisherFormViewModel { Publisher = obj };
 
+
+
+            return View(viewModel);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
+
+                var allPublishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
+                var cong = allPublishers.FirstOrDefault(x => x.Id == id);
                 await _PublisherService.RemoveAsync(id);
+
+                await _CongregationService.RemovePublisherCongregationforUpdateAsync(cong);
                 return RedirectToAction(nameof(Index));
             }
             catch (IntegrityException e)
@@ -169,6 +180,62 @@ namespace SalesWebMvc.Controllers
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             };
             return View(viewModel);
+        }
+
+
+        public async Task<IActionResult> PublisherRelated()
+        {
+
+            if (User.Identity.IsAuthenticated)
+            {
+                
+                var allPublishers = await _PublisherService.FindAllPublisherAndCongregationAsync(); // todos
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
+                var userObjeto = userLogado.FirstOrDefault(x => x.CongregationId != 0);
+
+                var myPublishersCongregation = allPublishers.Where(x => x.CongregationId == userObjeto.CongregationId ).ToList();
+
+                List<Publisher> publisherRelated = new List<Publisher>();
+                foreach (var item in myPublishersCongregation)
+                {
+                    if (item.LastActivitiesRelated == null)
+                    {
+                        continue;
+                    }
+
+                    if (item.LastActivitiesRelated.Value.Month == DateTime.Now.Month)
+                    {
+                        publisherRelated.Add(item);
+                    }
+
+                }
+
+                if (publisherRelated == null)
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Você ainda não adicionou atividades para os publicadores." });
+
+                }
+
+                var viewModel2 = myPublishersCongregation.Except(publisherRelated).OrderBy(x => x.FullName).ToList();
+
+                List<Publisher> vielModel = viewModel2;
+
+                var viewModel = new PublisherFormViewModel { Publishers = vielModel };
+
+
+                return View(viewModel);
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "/Login");
+            }
+        }
+
+        public async Task<IActionResult> RedirectToIndexReport()
+        {
+            return RedirectToAction("Index", "/ActivitiesReports");
         }
     }
 }

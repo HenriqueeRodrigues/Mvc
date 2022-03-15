@@ -31,6 +31,17 @@ namespace SecretaryWebMvc.Services
             return await _context.Publisher.Include(x => x.Congregation ).ToListAsync();
         }
 
+        public async Task SanitizaLastDateRelated(int? publisherId)
+        {
+
+            var publisherToUpdate = await _context.Publisher.FirstOrDefaultAsync(x => x.Id == publisherId);
+
+            publisherToUpdate.LastActivitiesRelated = null;
+            _context.Update(publisherToUpdate);
+            await _context.SaveChangesAsync();
+        }
+
+
         public async Task<List<Publisher>> FindAllAsync(Users userCurrent)
         {
             if (userCurrent.IsAdm == true)
@@ -56,6 +67,12 @@ namespace SecretaryWebMvc.Services
             try
             {
                 var obj = await _context.Publisher.FindAsync(id);
+                var activitiesPublisherForDelete = _context.ActivitiesReport.Where(x => x.PublisherId == id);
+                foreach (var item in activitiesPublisherForDelete)
+                {
+                    _context.ActivitiesReport.Remove(item);
+                }
+
                 _context.Publisher.Remove(obj);
                 await _context.SaveChangesAsync();
             }

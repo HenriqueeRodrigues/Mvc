@@ -3,9 +3,9 @@ i:{00000000-0000-0000-0000-000000000000}:SecretaryWebMvc.sln
 ++SecretaryWebMvc
 i:{00000000-0000-0000-0000-000000000000}:SecretaryWebMvc
 ++Connected Services 
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>999
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1031
 ++Dependencies
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>998
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1030
 ++Properties
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\properties\
 ++wwwroot
@@ -54,16 +54,16 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywe
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220218160539_inactivepublisher.cs
 ++20220219002711_assistance.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219002711_assistance.cs
-++20220219002711_assistance.Designer.cs
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219002711_assistance.designer.cs
 ++20220219003838_assistance1.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219003838_assistance1.cs
-++20220219003838_assistance1.Designer.cs
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219003838_assistance1.designer.cs
 ++20220219151533_datetime.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219151533_datetime.cs
-++20220219151533_datetime.Designer.cs
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219151533_datetime.designer.cs
+++20220221154230_FKAssistance.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220221154230_fkassistance.cs
+++20220227224120_newDbPraValer.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220227224120_newdbpravaler.cs
+++20220302211101_testeDatadeultimorelatorio.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220302211101_testedatadeultimorelatorio.cs
 ++SecretaryWebMvcContextModelSnapshot.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\secretarywebmvccontextmodelsnapshot.cs
 ++Models
@@ -72,6 +72,16 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywe
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\enums\
 ++ViewModels
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\
+++ActivitiesReportFormViewModel.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\activitiesreportformviewmodel.cs
+++CongregationFormViewModel.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\congregationformviewmodel.cs
+++ErrorViewModel.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\errorviewmodel.cs
+++PublisherFormViewModel.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\publisherformviewmodel.cs
+++ReportFormViewModel.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\reportformviewmodel.cs
 ++ActivitiesReport.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\activitiesreport.cs
 ++Assistance.cs
@@ -109,6 +119,7 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywe
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\publishers\create.cshtml
 ++Delete.cshtml
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\activitiesreports\delete.cshtml
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\assistance\delete.cshtml
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\congregations\delete.cshtml
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\publishers\delete.cshtml
 ++Details.cshtml
@@ -126,12 +137,12 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywe
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\assistance\index.cshtml
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\congregations\index.cshtml
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\login\index.cshtml
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\home\index.cshtml
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\publishers\index.cshtml
-++IndexReport VW.cshtml
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\activitiesreports\indexreport vw.cshtml
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\home\index.cshtml
 ++IndexReport.cshtml
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\activitiesreports\indexreport.cshtml
+++IndexReportVW.cshtml
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\activitiesreports\indexreportvw.cshtml
 ++SimpleSearch.cshtml
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\activitiesreports\simplesearch.cshtml
 ++Assistance
@@ -148,6 +159,10 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywe
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\login\link.cshtml
 ++Publishers
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\publishers\
+++Index - Copy.cshtml
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\publishers\index - copy.cshtml
+++PublisherRelated.cshtml
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\publishers\publisherrelated.cshtml
 ++Shared
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\views\shared\
 ++_CookieConsentPartial.cshtml
@@ -169,7 +184,7 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywe
 ++Startup.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\startup.cs
 ++SQL Server Database
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1020
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1052
 ++Analyzers
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:analyzers
 ++Packages
@@ -210,18 +225,20 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywe
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220218152210_inactive.designer.cs
 ++20220218160539_inactivePublisher.Designer.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220218160539_inactivepublisher.designer.cs
+++20220219002711_assistance.Designer.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219002711_assistance.designer.cs
+++20220219003838_assistance1.Designer.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219003838_assistance1.designer.cs
+++20220219151533_datetime.Designer.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220219151533_datetime.designer.cs
+++20220221154230_FKAssistance.Designer.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220221154230_fkassistance.designer.cs
+++20220227224120_newDbPraValer.Designer.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220227224120_newdbpravaler.designer.cs
+++20220302211101_testeDatadeultimorelatorio.Designer.cs
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\migrations\20220302211101_testedatadeultimorelatorio.designer.cs
 ++Month.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\enums\month.cs
-++ActivitiesReportFormViewModel.cs
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\activitiesreportformviewmodel.cs
-++CongregationFormViewModel.cs
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\congregationformviewmodel.cs
-++ErrorViewModel.cs
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\errorviewmodel.cs
-++PublisherFormViewModel.cs
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\publisherformviewmodel.cs
-++ReportFormViewModel.cs
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\models\viewmodels\reportformviewmodel.cs
 ++DbConcurrencyException.cs
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\services\exceptions\dbconcurrencyexception.cs
 ++IntegrityException.cs
@@ -235,7 +252,7 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywe
 ++appsettings.Development.json
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\appsettings.development.json
 ++Dependency mssql1 is missing and needs to be configured for current profile.
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1021
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1053
 ++Microsoft.AspNetCore.Mvc.Analyzers
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\.nuget\packages\microsoft.aspnetcore.mvc.analyzers\2.1.1\analyzers\dotnet\cs\microsoft.aspnetcore.mvc.analyzers.dll
 ++Microsoft.CodeAnalysis.Analyzers
@@ -245,31 +262,31 @@ i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\.nuget\packages\microsof
 ++Microsoft.EntityFrameworkCore.Analyzers
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\.nuget\packages\microsoft.entityframeworkcore.analyzers\2.1.14\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
 ++Microsoft.AspNetCore (2.1.7)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1011
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1043
 ++Microsoft.AspNetCore.App (2.1.1)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1004
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1036
 ++Microsoft.AspNetCore.Mvc (2.1.3)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1007
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1039
 ++Microsoft.AspNetCore.Razor.Design (2.1.2)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1002
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1034
 ++Microsoft.AspNetCore.StaticFiles (2.1.1)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1006
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1038
 ++Microsoft.EntityFrameworkCore.Design (2.1.14)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1005
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1037
 ++Microsoft.EntityFrameworkCore.SqlServer (2.1.14)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1003
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1035
 ++Microsoft.EntityFrameworkCore.Tools (2.1.14)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1008
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1040
 ++Microsoft.Extensions.Logging.Debug (2.1.1)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1014
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1046
 ++Microsoft.NETCore.App (2.1.0)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1010
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1042
 ++Microsoft.VisualStudio.Web.BrowserLink (2.1.1)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1009
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1041
 ++Microsoft.VisualStudio.Web.CodeGeneration.Design (2.1.10)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1013
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1045
 ++Pomelo.EntityFrameworkCore.MySql (2.1.1)
-i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1012
+i:{1325a89c-c859-4f6a-975d-ae699223e842}:>1044
 ++serviceDependencies.local.json
 i:{1325a89c-c859-4f6a-975d-ae699223e842}:c:\users\henri\source\repos\secretarywebmvc\saleswebmvc1\properties\servicedependencies.local.json
 ++site.css

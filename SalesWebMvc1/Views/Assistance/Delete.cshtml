@@ -1,0 +1,17 @@
+﻿@model SecretaryWebMvc.Models.Assistance
+
+    <h2>
+        Você realmente deseja <br />excluir essa atividade com a data :
+        @Model.Date, e @Model.Quantity de assistência.
+    </h2>
+
+<div class="col-md-4">
+    <hr />
+    
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

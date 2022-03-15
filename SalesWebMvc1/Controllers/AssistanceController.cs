@@ -30,31 +30,19 @@ namespace SecretaryWebMvc.Controllers
             {
                 var userLogedCongregation = await this.GetUserLogadoAndCongregation();
 
+                if (userLogedCongregation.Any(x => x.Congregation == null))
+                {
+                    return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
 
-                return View(userLogedCongregation);
+                }
+
+                return View(userLogedCongregation.Where(x => x.Date.Month == DateTime.Now.Month));
             }
             else
             {
                 return RedirectToAction("Index", "/Login");
             }
         }
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name,City,State")] Congregation congregation)
-
-        //{
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _AssistanceService.InsertAsync(assistance);
-        //        return RedirectToAction("Index", "/ActivitiesReports");
-
-        //    }
-        //    return View();
-
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -91,13 +79,13 @@ namespace SecretaryWebMvc.Controllers
                 //var obj = userLogedCongregation.FirstOrDefault();
                 //if (obj == null)
                 //{
-                    var user = await _PublisherService.FindAllUsersAsync(); // todos
-                    var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
-                    var hrn = userLogado.FirstOrDefault( x => x.CongregationId != 0);
+                var user = await _PublisherService.FindAllUsersAsync(); // todos
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
+                var hrn = userLogado.FirstOrDefault(x => x.CongregationId != 0);
 
-                    
 
-                    Assistance NewList1 = new Assistance() { Congregation = hrn.Congregation, CongregationId = (int)hrn.CongregationId, Date = DateTime.Today };
+
+                Assistance NewList1 = new Assistance() { Congregation = hrn.Congregation, CongregationId = (int)hrn.CongregationId, Date = DateTime.Today };
 
                 //    return View(NewList1);
                 //}
@@ -123,6 +111,17 @@ namespace SecretaryWebMvc.Controllers
 
             var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
 
+            if (usuarioLogadoObj == null)
+            {
+                var gambiarra = new List<Assistance>();
+                gambiarra.Add(new Assistance()
+                {
+                    Congregation = null
+                });
+
+                return gambiarra;
+            }
+
             var list = await _AssistanceService.FindAll(); // Todas atividades
 
             var returnObg = list.Where(x => x.CongregationId == usuarioLogadoObj.CongregationId).ToList();
@@ -135,7 +134,6 @@ namespace SecretaryWebMvc.Controllers
         {
             await this.DeleteBatchAction();
             return RedirectToAction(nameof(Index));
-
 
         }
 
@@ -169,6 +167,41 @@ namespace SecretaryWebMvc.Controllers
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             };
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+            }
+
+            var allAssistance = await _AssistanceService.FindAll();
+
+            if (allAssistance == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
+            }
+            var IdForDelete = allAssistance.FirstOrDefault(x => x.Id == id);
+
+
+            return View(IdForDelete);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _AssistanceService.RemoveIdAsync(id);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
     }
 }
