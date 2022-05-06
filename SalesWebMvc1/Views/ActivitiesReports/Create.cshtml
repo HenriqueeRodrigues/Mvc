@@ -17,10 +17,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label"> Publicador</label>
-                   
                                 <select asp-for="ActivitiesReport.PublisherId" asp-items="@(new SelectList( @Model.Publishers,"Id","FullName"))" class="form-control">
                                 <option disabled selected>Selecione</option>
                                 </select>
+                              <span asp-validation-for="ActivitiesReport.Publisher" class="text-danger"></span>
+
                            
                     </div>
                     <div class="form-group">
@@ -61,7 +62,7 @@
                         <input asp-for="ActivitiesReport.Observation" class="form-control" />
                     </div>
 
-
+                    
                     <div class="form-group">
                         <label class="control-label">Mês</label>
                         <input asp-for="ActivitiesReport.Date" type="month" class="form-control" />

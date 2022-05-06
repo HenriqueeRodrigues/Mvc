@@ -65,12 +65,9 @@ namespace SecretaryWebMvc.Controllers
                 RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
 
             }
-            //var activitiesMonthBeforeThatCurrent = userLogedCongregation.Where(x => x.Date.Month == DateTime.Now.AddMonths(-1).Month).OrderBy(x => x.Publisher.FullName).ToList();
+
             var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
-            //var vielToMonth = userLogedCongregation.Where(x => x.PublisherRelated == false).ToList();
             var activitiesToGetCongId = allActivitiesWhithDateOrWithOut.FirstOrDefault(x => x.Publisher.CongregationId != null);
-
-
 
             if (activitiesToGetCongId == null)
             {
@@ -95,6 +92,19 @@ namespace SecretaryWebMvc.Controllers
             }
             else
             {
+                if (activities.Date == DateTime.MinValue)
+                {
+                    var monthCurrentForActivities = DateTime.Now.AddMonths(-1);
+                    var allActivitiesWhithDateOrWithOutFilterMonth = allActivitiesWhithDateOrWithOut.Where(x => x.Date.Month == monthCurrentForActivities.Month).ToList();
+
+                    var viewModel1 = new ActivitiesReportFormViewModel
+                    {
+                        ActivitiesReports = allActivitiesWhithDateOrWithOutFilterMonth,
+                        Publishers = publishers.Where(x => x.CongregationId == activitiesToGetCongId.Publisher.CongregationId).OrderBy(x => x.FullName).ToList()
+                    };
+                    return viewModel1;
+                }
+
                 var viewModel = new ActivitiesReportFormViewModel
                 {
                     ActivitiesReports = allActivitiesWhithDateOrWithOut,
@@ -102,126 +112,7 @@ namespace SecretaryWebMvc.Controllers
                 };
                 return viewModel;
             }
-
         }
-
-        //public async Task<IActionResult> Index(ActivitiesReport activitiesReport)
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        if (activitiesReport.Date == DateTime.MinValue && activitiesReport.PublisherId == null)
-        //        {
-
-        //            ActivitiesReport param = new ActivitiesReport();
-
-        //            var userLogedCongregation = await this.GetUserLogadoAndCongregation(param);
-
-        //            if (userLogedCongregation.Any(x => x.Publisher == null))
-        //            {
-        //                return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
-
-        //            }
-        //            var filter = userLogedCongregation.Where(x => x.Date.Month == DateTime.Now.AddMonths(-1).Month).OrderBy(x => x.Publisher.FullName).ToList();
-
-        //            var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
-        //            var activitiesToGetCongId = userLogedCongregation.FirstOrDefault(x => x.Publisher.CongregationId != null);
-
-
-        //            var viewModel = new ActivitiesReportFormViewModel
-        //            {
-        //                ActivitiesReports = filter,
-        //                Publishers = publishers.Where(x => x.CongregationId == activitiesToGetCongId.Publisher.CongregationId).OrderBy(x => x.FullName).ToList()
-        //        };
-
-        //            return View(viewModel);
-        //        }
-        //        if (activitiesReport.Date == DateTime.MinValue && activitiesReport.PublisherId != null)
-        //        {
-        //            if (User.Identity.IsAuthenticated)
-        //            {
-        //                var userLogedCongregation = await this.GetUserLogadoAndCongregation(activitiesReport);
-
-        //                var activitiesToGetCongId = userLogedCongregation.FirstOrDefault(x => x.Publisher.CongregationId != 0);
-
-        //                if (activitiesToGetCongId == null)
-        //                {
-        //                    var viewModelWithoutAssistance = new ActivitiesReportFormViewModel { ActivitiesReports = userLogedCongregation };
-
-        //                    return View(viewModelWithoutAssistance);
-
-        //                }
-
-        //                var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
-
-
-        //                var viewModel = new ActivitiesReportFormViewModel
-        //                {
-        //                    ActivitiesReports = userLogedCongregation
-        //                    .Where(x => x.PublisherId == activitiesReport.PublisherId).OrderBy(y => y.Date).ToList(),
-        //                    Publishers = publishers.Where(x => x.CongregationId == activitiesToGetCongId.Publisher.CongregationId).OrderBy(x => x.FullName).ToList()
-        //                };
-
-        //                return View(viewModel);
-        //            }
-        //            else
-        //            {
-        //                return RedirectToAction("Index", "/Login");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (activitiesReport.Date == DateTime.MinValue)
-        //            {
-        //                return View();
-        //            }
-        //            if (User.Identity.IsAuthenticated)
-        //            {
-
-        //                var activitiesLocal = await this.GetUserLogadoAndCongregation(activitiesReport);
-
-        //                if (activitiesLocal.Any(x => x.Publisher.CongregationId == default))
-        //                {
-        //                    return RedirectToAction(nameof(Error), new { message = "Você ainda não se vinculou a nenhuma congregação. Se vincule para ter acesso as atividades dos publicadores de sua congregação." });
-
-        //                }
-
-        //                var viewlModel2 = activitiesLocal.Where(x => x.PublisherRelated == false).ToList();
-
-        //                var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
-        //                var activitiesToGetCongId = activitiesLocal.FirstOrDefault(x => x.Publisher.CongregationId != null);
-
-        //                if (activitiesToGetCongId == null)
-        //                {
-        //                    var viewModel2 = new ActivitiesReportFormViewModel
-        //                    {
-        //                        ActivitiesReports = new List<ActivitiesReport>(),
-        //                        Publishers = new List<Publisher>(),
-        //                    };
-        //                    return View(viewModel2);
-        //                }
-
-        //                var viewModel = new ActivitiesReportFormViewModel
-        //                {
-        //                    ActivitiesReports = viewlModel2,
-        //                    Publishers = publishers.Where(x => x.CongregationId == activitiesToGetCongId.Publisher.CongregationId).OrderBy(x => x.FullName).ToList()
-        //                };
-        //                return View(viewModel);
-
-        //            }
-        //            else
-        //            {
-        //                return RedirectToAction("Index", "/Login");
-        //            }
-
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Index", "/Login");
-        //    }
-        //}
-
 
         [HttpPost]
         public async Task<IActionResult> IndexReport([Bind("Date")] ActivitiesReport actives)
@@ -256,15 +147,13 @@ namespace SecretaryWebMvc.Controllers
             }
         }
 
-
         public async Task<IActionResult> IndexReport()
         {
             if (User.Identity.IsAuthenticated)
             {
+                var user = await _PublisherService.FindAllUsersAsync();
 
-                var user = await _PublisherService.FindAllUsersAsync(); // todos
-
-                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList(); // so o loogado
+                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
 
                 if (userLogado.Any(x => x.CongregationId == null))
                 {
@@ -285,25 +174,23 @@ namespace SecretaryWebMvc.Controllers
 
             if (dateSearch.Date != DateTime.MinValue)
             {
-                var user = await _PublisherService.FindAllUsersAsync(); // todos
+                var user = await _PublisherService.FindAllUsersAsync();
 
                 var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
 
-                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);
 
                 var listMonthResult = await _ActivitiesReportService.FindAllReporteMonthAsync(usuarioLogadoObj.Congregation.Id, dateSearch.Date);
 
-
                 return listMonthResult;
-
             }
             else
             {
-                var user = await _PublisherService.FindAllUsersAsync(); // todos
+                var user = await _PublisherService.FindAllUsersAsync();
 
                 var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
 
-                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
+                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);
 
                 if (usuarioLogadoObj == null)
                 {
@@ -316,7 +203,7 @@ namespace SecretaryWebMvc.Controllers
                     return listEmpty;
                 }
 
-                var list = await _ActivitiesReportService.FindAllAsync(usuarioLogadoObj.Congregation.Id); // Todas atividades
+                var list = await _ActivitiesReportService.FindAllAsync(usuarioLogadoObj.Congregation.Id);
 
                 return list;
             }
@@ -336,6 +223,7 @@ namespace SecretaryWebMvc.Controllers
 
             List<Publisher> pub = new List<Publisher>();
 
+
             foreach (var item in publishers)
             {
                 if ((item.CongregationId == usuarioLogadoObj.CongregationId && item.LastActivitiesRelated == null) ||
@@ -345,7 +233,7 @@ namespace SecretaryWebMvc.Controllers
                 }
             }
 
-            var viewModel = new ActivitiesReportFormViewModel { Publishers = pub };
+            var viewModel = new ActivitiesReportFormViewModel { Publishers = pub.OrderBy(x => x.FullName).ToList() };
             return View(viewModel);
         }
 
@@ -379,7 +267,6 @@ namespace SecretaryWebMvc.Controllers
             }
 
             return View(obj);
-            return RedirectToAction("Index", "/ActivitiesReports");
         }
 
         [HttpPost]
@@ -422,9 +309,6 @@ namespace SecretaryWebMvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ActivitiesReport activitiesReport)
         {
-
-
-
             if (!ModelState.IsValid)
             {
                 var publishers = await _PublisherService.FindAllPublisherAndCongregationAsync();
@@ -437,7 +321,6 @@ namespace SecretaryWebMvc.Controllers
             }
             try
             {
-
                 await _ActivitiesReportService.UpdateAsync(activitiesReport);
                 return RedirectToAction(nameof(Index));
             }
@@ -445,38 +328,6 @@ namespace SecretaryWebMvc.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-        }
-
-        public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
-        {
-            if (!minDate.HasValue)
-            {
-                minDate = new DateTime(DateTime.Now.Year, 1, 1);
-            }
-            if (!maxDate.HasValue)
-            {
-                maxDate = DateTime.Now;
-            }
-            ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
-            ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
-            var result = await _ActivitiesReportService.FindByDateAsync(minDate, maxDate);
-            return View(result);
-        }
-
-        public async Task<IActionResult> GroupingSearch(DateTime? minDate, DateTime? maxDate)
-        {
-            if (!minDate.HasValue)
-            {
-                minDate = new DateTime(DateTime.Now.Year, 1, 1);
-            }
-            if (!maxDate.HasValue)
-            {
-                maxDate = DateTime.Now;
-            }
-            ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
-            ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
-            var result = await _ActivitiesReportService.FindByDateGroupingAsync(minDate, maxDate);
-            return View(result);
         }
 
         public IActionResult Error(string message)
@@ -491,7 +342,7 @@ namespace SecretaryWebMvc.Controllers
 
         public async Task<IActionResult> SumAssistance()
         {
-            return RedirectToAction("Assistance", "/Assistance");
+             return RedirectToAction("Assistance", "/Assistance");
         }
 
         public async Task<IActionResult> PublishersRelated()
@@ -499,13 +350,10 @@ namespace SecretaryWebMvc.Controllers
             return RedirectToAction("PublisherRelated", "/Publishers");
         }
 
-
         public async Task<IActionResult> DeleteBatch()
         {
             await this.DeleteBatchAction();
             return RedirectToAction(nameof(Index));
-
-
         }
 
         [HttpPost]
@@ -514,13 +362,10 @@ namespace SecretaryWebMvc.Controllers
         {
             try
             {
-                var user = await _PublisherService.FindAllUsersAsync(); // todos
+                var myAllActivities = await GetUserLogadoAndCongregation(new ActivitiesReport());
+                
 
-                var userLogado = user.Where(x => x.Nome == User.Identity.Name).ToList();
-
-                var usuarioLogadoObj = userLogado.FirstOrDefault(x => x.CongregationId != null);// id da congregação do logado
-
-                await _ActivitiesReportService.RemoveBatchAsync(usuarioLogadoObj.CongregationId);
+                await _ActivitiesReportService.RemoveBatchAsync(myAllActivities);
                 return RedirectToAction(nameof(Index));
             }
             catch (IntegrityException e)

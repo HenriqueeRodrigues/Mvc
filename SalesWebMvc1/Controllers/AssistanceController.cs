@@ -36,7 +36,7 @@ namespace SecretaryWebMvc.Controllers
 
                 }
 
-                return View(userLogedCongregation.Where(x => x.Date.Month == DateTime.Now.Month));
+                return View(userLogedCongregation.Where(x => x.Date.Month == DateTime.Now.Month).OrderBy(x => x.Date).ToList());
             }
             else
             {

@@ -59,11 +59,16 @@ namespace SecretaryWebMvc.Services
 
             var getAllActivities = await this._context.ActivitiesReport
                .Include(x => x.Publisher)
-               .ThenInclude(x => x.Congregation)
+               .ThenInclude(x => x.Congregation).OrderBy(x => x.Publisher.FullName)
                    .ToListAsync();
 
             foreach (var item in getAllActivities)
             {
+                if (item.PublisherId == null)
+                {
+                    continue;
+                }
+
                 if (item.Publisher.CongregationId == congUserLoged &&
                     item.Date.Month == reportMonth?.Date.Month &&
                     item.Date.Year == reportMonth?.Date.Year )
@@ -72,8 +77,6 @@ namespace SecretaryWebMvc.Services
                 }
             }
             return listResult;
-
-            // return await _context.ActivitiesReport.Include(x => x.Publisher).Where().ToListAsync();
         }
 
         public async Task<List<ActivitiesReport>> FindAllAsync(int congUserLoged)
@@ -82,12 +85,16 @@ namespace SecretaryWebMvc.Services
 
             var getAllActivities = await this._context.ActivitiesReport
                .Include(x => x.Publisher)
-               .ThenInclude(x => x.Congregation)
+               .ThenInclude(x => x.Congregation).OrderBy(x => x.Publisher.FullName)
                    .ToListAsync();
 
             foreach (var item in getAllActivities)
             {
-                if (item.Publisher.CongregationId == congUserLoged && item.PublisherRelated == false)
+                if (item.Publisher == null)
+                {
+                    continue;
+                }
+                if (item.Publisher.CongregationId == congUserLoged)
                 {
                     listResult.Add(item);
                 }
@@ -99,17 +106,11 @@ namespace SecretaryWebMvc.Services
 
         public async Task<ActivitiesReport> FindAllOneAsync(Users userLoged)
         {
-            if (userLoged.IsAdm == true)
-            {
-                //return await _context.ActivitiesReport.Include(x => x.Publisher).ToListAsync();
-            }
             return await _context.ActivitiesReport
                 .Include(x => x.Publisher)
                 .ThenInclude(x => x.Congregation)
                     .FirstOrDefaultAsync(x => x.Publisher.CongregationId == userLoged.CongregationId);
 
-
-            // return await _context.ActivitiesReport.Include(x => x.Publisher).Where().ToListAsync();
         }
        
 
@@ -200,23 +201,17 @@ namespace SecretaryWebMvc.Services
                 .ToListAsync();
         }
 
-        public async Task RemoveBatchAsync(int? congregationId)
+        public async Task RemoveBatchAsync(List<ActivitiesReport> myCongregationActivities)
         {
             try
             {
-
-                var obj = await _context.ActivitiesReport.Where(x => x.Publisher.CongregationId == congregationId).ToListAsync();
-
-
                 DateTime datafim = DateTime.Today;
                 DateTime datainicio = datafim;
 
                 // pega o mês anterior...
                 datafim = datafim.AddMonths(-12);
 
-
-                var Henrique = obj.Where(x => x.Date < datafim).ToList();
-
+                var Henrique = myCongregationActivities.Where(x => x.Date < datafim).ToList();
 
                 foreach (var item in Henrique)
                 {
