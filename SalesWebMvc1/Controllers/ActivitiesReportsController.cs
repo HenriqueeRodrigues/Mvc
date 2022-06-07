@@ -31,24 +31,43 @@ namespace SecretaryWebMvc.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (activitiesReport.Date == DateTime.MinValue && activitiesReport.PublisherId == null)
-                {
-                    var viewModel = await GetActivitiesWithMyCongregation(new ActivitiesReport());
+                //if (activitiesReport.Date == DateTime.MinValue && activitiesReport.PublisherId == null) // Carregamento inicial
+                //{
+                //    var viewModel = await GetActivitiesWithMyCongregation(new ActivitiesReport());
 
-                    return View(viewModel);
-                }
-                if (activitiesReport.Date == DateTime.MinValue && activitiesReport.PublisherId != null)
-                {
-                    var viewModel = await GetActivitiesWithMyCongregation(activitiesReport);
+                //    return View(viewModel);
+                //}
+                //if (activitiesReport.Date == DateTime.MinValue && activitiesReport.PublisherId != null) // Pesquisar por Publicador
+                //{
+                var viewModel = await GetActivitiesWithMyCongregation(activitiesReport);
 
-                    return View(viewModel);
-                }
-                else
-                {
-                    var viewModel = await GetActivitiesWithMyCongregation(activitiesReport);
+                return View(viewModel);
+                //}
+                //else
+                //{
+                //    var viewModel = await GetActivitiesWithMyCongregation(activitiesReport);
 
-                    return View(viewModel);
-                }
+                //    return View(viewModel);
+                //}
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "/Login");
+            }
+        }
+
+        public async Task<IActionResult> Irregular(ActivitiesReport activitiesReport)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var viewModel = await GetActivitiesWithMyCongregation(activitiesReport);
+
+                viewModel.ActivitiesReports.Where(x => x.PublisherRelated == true);
+
+
+                return View(viewModel);
+
             }
             else
             {
@@ -342,7 +361,7 @@ namespace SecretaryWebMvc.Controllers
 
         public async Task<IActionResult> SumAssistance()
         {
-             return RedirectToAction("Assistance", "/Assistance");
+            return RedirectToAction("Assistance", "/Assistance");
         }
 
         public async Task<IActionResult> PublishersRelated()
@@ -363,7 +382,7 @@ namespace SecretaryWebMvc.Controllers
             try
             {
                 var myAllActivities = await GetUserLogadoAndCongregation(new ActivitiesReport());
-                
+
 
                 await _ActivitiesReportService.RemoveBatchAsync(myAllActivities);
                 return RedirectToAction(nameof(Index));

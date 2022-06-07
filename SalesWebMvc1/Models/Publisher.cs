@@ -84,11 +84,5 @@ namespace SecretaryWebMvc.Models
         {
             this.Activities.Remove(sr);
         }
-
-        //public double TotalPublisher(DateTime init, DateTime final)
-        //{
-
-        //    return Activities.Where(x => x.Date >= init && x.Date <= final).Sum( y => y.Hours);
-        //}
     }
 }

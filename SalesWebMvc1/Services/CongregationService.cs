@@ -20,21 +20,6 @@ namespace SecretaryWebMvc.Services
             _context = context;
         }
 
-
-        //public async Task FindAllCongregationforAttAsync(Publisher publisher)
-        //{
-        //    var attCongregationPublisher = await _context.Congregation.Where(x => x.Id == publisher.CongregationId).ToListAsync();
-
-        //    var count = attCongregationPublisher.Select( x => x.SumPublishers.Value);
-
-        //    foreach (var item in attCongregationPublisher)
-        //    {
-        //        item.SumPublishers = item.SumPublishers + 1;
-        //    }
-
-        //    UpdateAsync(attCongregationPublisher);
-
-        //}
         public async Task FindAllCongregationforUpdateAsync(Publisher publisher)
         {
             var congregationUpdate = await _context.Congregation.FirstOrDefaultAsync(x => x.Id == publisher.CongregationId);

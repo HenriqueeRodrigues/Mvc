@@ -39,8 +39,6 @@ namespace SecretaryWebMvc.Models
 
         public bool PublisherRelated { get; set; }
 
-        //public int MonthsId { get; set; }
-
         public ActivitiesReport()
         {
         }

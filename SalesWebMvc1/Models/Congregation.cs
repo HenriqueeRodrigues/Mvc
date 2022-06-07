@@ -20,30 +20,21 @@ namespace SecretaryWebMvc.Models
 
         public int SumPublishers { get; set; } 
 
-        //public int? UserId { get; set; }
-
         public Congregation()
         {
         }
 
-        public Congregation(int id, string name, string city, string state/*, Users users*/)
+        public Congregation(int id, string name, string city, string state)
         {
             Id = id;
             Name = name;
             City = city;
             State = state;
-            //Users = users;
         }
         
         public void AddPublishers(Publisher Publisher)
         {
             this.Publishers.Add(Publisher);
         }
-
-        //public double TotalPublishers(DateTime init, DateTime final)
-        //{
-
-        //    return Publishers.Sum(y => y.TotalPublisher(init, final));
-        //}
     }
 }

@@ -54,10 +54,12 @@
                 <button type="submit" class="btn btn-primary " style="margin-left: 120px;margin-top: 5px;">Voltar com todas Ativ.</button>
 
             </form>
+
         </div>
     </div>
 
-    <p>
+
+    <p class="col-md-6">
         <a type="button" class="btn btn-link alert-link" data-toggle="modal" data-target="#myModal"> Excluir todos registros anteriores a 1 ano atrás. </a>
     </p>
 
@@ -66,7 +68,9 @@
         <thead>
             <tr class="btn-primary bg-success">
                 <th>
-                    <label>Nome</label>
+                    <span style="margin-right:0px; font-size:10px; color:aliceblue;"> @Model.ActivitiesReports.Count() / @Model.Publishers.Count() |</span>
+                    <label style="margin-left:30px" >Nome</label>
+
                 </th>
                 <th>
                     <label>Publicações</label>
@@ -125,54 +129,7 @@
                         @Html.DisplayFor(x => item.Observation)
                     </td>
                     <td>
-                        @if (item.Date.Month == 1)
-                        {
-                            @Html.DisplayName("Janeiro")
-                        }
-                        @if (item.Date.Month == 2)
-                        {
-                            @Html.DisplayName("Fevereiro")
-                        }
-                        @if (item.Date.Month == 3)
-                        {
-                            @Html.DisplayName("Março")
-                        }
-                        @if (item.Date.Month == 4)
-                        {
-                            @Html.DisplayName("Abril")
-                        }
-                        @if (item.Date.Month == 5)
-                        {
-                            @Html.DisplayName("Maio")
-                        }
-                        @if (item.Date.Month == 6)
-                        {
-                            @Html.DisplayName("Junho")
-                        }
-                        @if (item.Date.Month == 7)
-                        {
-                            @Html.DisplayName("Julho")
-                        }
-                        @if (item.Date.Month == 8)
-                        {
-                            @Html.DisplayName("Agosto")
-                        }
-                        @if (item.Date.Month == 9)
-                        {
-                            @Html.DisplayName("Setembro")
-                        }
-                        @if (item.Date.Month == 10)
-                        {
-                            @Html.DisplayName("Outubro")
-                        }
-                        @if (item.Date.Month == 11)
-                        {
-                            @Html.DisplayName("Novembro")
-                        }
-                        @if (item.Date.Month == 12)
-                        {
-                            @Html.DisplayName("Dezembro")
-                        }
+                            @Html.DisplayName(@Model.Month(item.Date.Month))
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>

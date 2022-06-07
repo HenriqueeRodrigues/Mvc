@@ -36,8 +36,6 @@ namespace SecretaryWebMvc.Services
                 .ThenInclude(x => x.Congregation)
                     .Where(x => x.Publisher.CongregationId == userLoged.CongregationId).ToListAsync();
 
-
-           // return await _context.ActivitiesReport.Include(x => x.Publisher).Where().ToListAsync();
         }
 
         public async Task<List<ActivitiesReport>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)

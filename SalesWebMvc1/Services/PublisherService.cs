@@ -48,7 +48,7 @@ namespace SecretaryWebMvc.Services
             {
                 return await _context.Publisher.Include(x => x.Congregation).ToListAsync();
             }
-            return await _context.Publisher.Include(x => x.Congregation).Where(x => x.CongregationId == userCurrent.CongregationId).ToListAsync();
+            return await _context.Publisher.Include(x => x.Congregation).Where(x => x.CongregationId == userCurrent.CongregationId).OrderBy(y => y.FullName).ToListAsync();
         }
 
         public async Task InsertAsync(Publisher obj)

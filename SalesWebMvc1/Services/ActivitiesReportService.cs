@@ -35,7 +35,6 @@ namespace SecretaryWebMvc.Services
         public async void SetToPublisherInactive()
         {
             var publisher = await _PublisherService.FindAllPublisherAndCongregationAsync();
-            //var publisherId = 0;
 
             foreach (var item in publisher)
             {
@@ -45,7 +44,7 @@ namespace SecretaryWebMvc.Services
 
                 foreach (var activities in todaAtividaeds)
                 {
-                    if (activities.PublisherId == publisherId) //atividade do Henrique fevereiro
+                    if (activities.PublisherId == publisherId)
                     {
                         //var mes = activities.Date.Month == null;
                     }

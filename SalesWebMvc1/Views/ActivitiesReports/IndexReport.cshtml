@@ -1,6 +1,7 @@
 ﻿@using SecretaryWebMvc.Models.Enums
 @model SecretaryWebMvc.Models.ViewModels.ActivitiesReportFormViewModel
 
+
 <br />
 <h2> Atividades Congregacionais</h2>
 <div class="container-fluid">
@@ -19,14 +20,15 @@
 
 @if (Model != null)
 {
+    var month = Model.ActivitiesReports.FirstOrDefault(x => x.Date != DateTime.MinValue).Date.Month;
     var sumPublisher = @Model.ActivitiesReports.FirstOrDefault(x => x.Publisher.Congregation.SumPublishers > 0);
     if (Model.Assistances != null)
     {
         var assistanceFds = @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday);
     }
 
-    var assistanceWeekend = @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Saturday ||  x.Date.DayOfWeek == DayOfWeek.Sunday ).Sum(x => x.Quantity);
-    var assistanceWeek = @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday || x.Date.DayOfWeek == DayOfWeek.Thursday  ).Sum(x => x.Quantity);
+    var assistanceWeekend = @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Saturday || x.Date.DayOfWeek == DayOfWeek.Sunday).Sum(x => x.Quantity);
+    var assistanceWeek = @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday || x.Date.DayOfWeek == DayOfWeek.Thursday).Sum(x => x.Quantity);
 
     if (sumPublisher != null)
     {
@@ -47,7 +49,6 @@
                     <label>Assistência as Reuniões</label><br />
                     <label>Meio de Semana : @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday || x.Date.DayOfWeek == DayOfWeek.Thursday  ).Sum(x => x.Quantity)</label> <br />
                     <label>Fim de semana : @Model.Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Saturday ||  x.Date.DayOfWeek == DayOfWeek.Sunday ).Sum(x => x.Quantity)</label>
-                  @*  <a type="button" class="btn-link alert-link" data-toggle="modal" data-target="#myModal2"> Média </a>*@
                 </dt>
             </dl>
         </table>
@@ -93,57 +94,9 @@
             <tr>
                 <td>
                     @{
-                        var months = Model.ActivitiesReports.Where(x => x.Date != DateTime.MinValue);
-                        @if (months.Any(x => x.Date.Month == 1))
-                        {
-                            @Html.DisplayName("Janeiro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 2))
-                        {
-                            @Html.DisplayName("Fevereiro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 3))
-                        {
-                            @Html.DisplayName("Março")
-                        }
-                        @if (months.Any(x => x.Date.Month == 4))
-                        {
-                            @Html.DisplayName("Abril")
-                        }
-                        @if (months.Any(x => x.Date.Month == 5))
-                        {
-                            @Html.DisplayName("Maio")
-                        }
-                        @if (months.Any(x => x.Date.Month == 6))
-                        {
-                            @Html.DisplayName("Junho")
-                        }
-                        @if (months.Any(x => x.Date.Month == 7))
-                        {
-                            @Html.DisplayName("Julho")
-                        }
-                        @if (months.Any(x => x.Date.Month == 8))
-                        {
-                            @Html.DisplayName("Agosto")
-                        }
-                        @if (months.Any(x => x.Date.Month == 9))
-                        {
-                            @Html.DisplayName("Setembro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 10))
-                        {
-                            @Html.DisplayName("Outubro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 11))
-                        {
-                            @Html.DisplayName("Novembro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 12))
-                        {
-                            @Html.DisplayName("Dezembro")
-                        }
+                        
+                        @Html.DisplayName(@Model.Month(month))
                     }
-
                     @{
                         var publisher = @Model.ActivitiesReports.Where(x => x.IsPionerAux == false && x.Publisher.Ispioneer == false);
                     }
@@ -215,57 +168,9 @@
             <tr>
                 <td>
                     @{
-                        var months = Model.ActivitiesReports.Where(x => x.Date != DateTime.MinValue);
-                        @if (months.Any(x => x.Date.Month == 1))
-                        {
-                            @Html.DisplayName("Janeiro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 2))
-                        {
-                            @Html.DisplayName("Fevereiro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 3))
-                        {
-                            @Html.DisplayName("Março")
-                        }
-                        @if (months.Any(x => x.Date.Month == 4))
-                        {
-                            @Html.DisplayName("Abril")
-                        }
-                        @if (months.Any(x => x.Date.Month == 5))
-                        {
-                            @Html.DisplayName("Maio")
-                        }
-                        @if (months.Any(x => x.Date.Month == 6))
-                        {
-                            @Html.DisplayName("Junho")
-                        }
-                        @if (months.Any(x => x.Date.Month == 7))
-                        {
-                            @Html.DisplayName("Julho")
-                        }
-                        @if (months.Any(x => x.Date.Month == 8))
-                        {
-                            @Html.DisplayName("Agosto")
-                        }
-                        @if (months.Any(x => x.Date.Month == 9))
-                        {
-                            @Html.DisplayName("Setembro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 10))
-                        {
-                            @Html.DisplayName("Outubro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 11))
-                        {
-                            @Html.DisplayName("Novembro")
-                        }
-                        @if (months.Any(x => x.Date.Month == 12))
-                        {
-                            @Html.DisplayName("Dezembro")
-                        }
+                        
+                        @Html.DisplayName(@Model.Month(month))
                     }
-
                 </td>
 
                 <td>
@@ -335,59 +240,9 @@
                 <tr>
                     <td>
                         @{
-                            var months = Model.ActivitiesReports.Where(x => x.Date != DateTime.MinValue);
-                            @if (months.Any(x => x.Date.Month == 1))
-                            {
-                                @Html.DisplayName("Janeiro")
-                            }
-                            @if (months.Any(x => x.Date.Month == 2))
-                            {
-                                @Html.DisplayName("Fevereiro")
-                            }
-                            @if (months.Any(x => x.Date.Month == 3))
-                            {
-                                @Html.DisplayName("Março")
-                            }
-                            @if (months.Any(x => x.Date.Month == 4))
-                            {
-                                @Html.DisplayName("Abril")
-                            }
-                            @if (months.Any(x => x.Date.Month == 5))
-                            {
-                                @Html.DisplayName("Maio")
-                            }
-                            @if (months.Any(x => x.Date.Month == 6))
-                            {
-                                @Html.DisplayName("Junho")
-                            }
-                            @if (months.Any(x => x.Date.Month == 7))
-                            {
-                                @Html.DisplayName("Julho")
-                            }
-                            @if (months.Any(x => x.Date.Month == 8))
-                            {
-                                @Html.DisplayName("Agosto")
-                            }
-                            @if (months.Any(x => x.Date.Month == 9))
-                            {
-                                @Html.DisplayName("Setembro")
-                            }
-                            @if (months.Any(x => x.Date.Month == 10))
-                            {
-                                @Html.DisplayName("Outubro")
-                            }
-                            @if (months.Any(x => x.Date.Month == 11))
-                            {
-                                @Html.DisplayName("Novembro")
-                            }
-                            @if (months.Any(x => x.Date.Month == 12))
-                            {
-                                @Html.DisplayName("Dezembro")
-                            }
+                            @Html.DisplayName(@Model.Month(month))
                         }
-
                     </td>
-
                     <td>
                         @Html.DisplayName(Model.ActivitiesReports.Where(x => x.IsPionerAux == true).Sum( x => x.Publications).ToString())
                     </td>
@@ -411,57 +266,9 @@
             }
         }
     </table>
-
-  @*  <div class="modal fade" id="myModal2" role="dialog">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="color:black">Média</h4>
-                </div>
-                <div class="modal-body">
-                    <center>
-                        <h4 class="modal-title" style="color:red">Escolha quantas reuniões</h4>
-                        <br/>
-                        <div class="col-md-9">
-                            <label>Fim de Semana</label>
-                            <input type="number" class="form-control" name="mediaFds" id="mediaFds" />
-                            <br/>
-                            <label>Meio Semana</label>
-                            <input type="number" value="Semana" class="form-control" name="mediaWeek" id="mediaWeek" />
-
-                            <input type="button" value="SomarMédia" class="btn btn-danger" />
-                           
-                            <label>Fim de Semana : @assistanceWeekend / #mediaFds.Value</label>
-                            <label>Meio de Semana: @assistanceWeek / #mediaWeek </label>
-                                
-                           
-
-                        </div>
-
-                        <br />
-                        <br />
-                        <br />
-
-                        <div class="row">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form asp-action="Delete">
-
-
-                                        <div class="form-group">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </center>
-                </div>
-            </div>
-        </div>
-    </div>*@
 }
+
+
 
 
 

@@ -59,8 +59,6 @@ namespace SecretaryWebMvc.Services
 
         public async Task<Users> ValidationEmailAsync(string email)
         {
-
-           //var userActives = await _context.User.Include(x => x.Congregation).Where(x => x.Email == email && x.CongregationId == null).ToListAsync();
             var userActives = await _context.User.Include(x => x.Congregation).FirstAsync(x => x.Email == email && x.CongregationId == null);
             await _context.SaveChangesAsync();
 
