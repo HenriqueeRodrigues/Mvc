@@ -43,6 +43,9 @@ namespace SecretaryWebMvc.Models
 
         public bool IsInactive { get; set; }
 
+        [Required]
+        public bool IsMan { get; set; }
+
         public DateTime? LastActivitiesRelated { get; set; }
 
         public ICollection<ActivitiesReport> Activities { get; set; } = new List<ActivitiesReport>();
@@ -74,15 +77,5 @@ namespace SecretaryWebMvc.Models
             Congregation = congregation;
         }
 
-
-        public void AddPublisher(ActivitiesReport sr)
-        {
-            this.Activities.Add(sr);
-        }
-    
-        public void RemovePublisher(ActivitiesReport sr)
-        {
-            this.Activities.Remove(sr);
-        }
     }
 }

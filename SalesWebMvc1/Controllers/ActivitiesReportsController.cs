@@ -31,24 +31,8 @@ namespace SecretaryWebMvc.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                //if (activitiesReport.Date == DateTime.MinValue && activitiesReport.PublisherId == null) // Carregamento inicial
-                //{
-                //    var viewModel = await GetActivitiesWithMyCongregation(new ActivitiesReport());
-
-                //    return View(viewModel);
-                //}
-                //if (activitiesReport.Date == DateTime.MinValue && activitiesReport.PublisherId != null) // Pesquisar por Publicador
-                //{
                 var viewModel = await GetActivitiesWithMyCongregation(activitiesReport);
-
                 return View(viewModel);
-                //}
-                //else
-                //{
-                //    var viewModel = await GetActivitiesWithMyCongregation(activitiesReport);
-
-                //    return View(viewModel);
-                //}
 
             }
             else
@@ -109,6 +93,17 @@ namespace SecretaryWebMvc.Controllers
                 return viewModel;
 
             }
+            else if(activities.Publisher != null && activities.Publisher.Ispioneer)
+            {
+                var pionerRegular = allActivitiesWhithDateOrWithOut.Where(x => x.Publisher.Ispioneer == true).ToList();
+
+                var viewModel = new ActivitiesReportFormViewModel
+                {
+                    ActivitiesReports = pionerRegular,
+                    Publishers = publishers.Where(x => x.CongregationId == activitiesToGetCongId.Publisher.CongregationId).OrderBy(x => x.FullName).ToList()
+                };
+                return viewModel;
+            }
             else
             {
                 if (activities.Date == DateTime.MinValue)
@@ -130,6 +125,8 @@ namespace SecretaryWebMvc.Controllers
                     Publishers = publishers.Where(x => x.CongregationId == activitiesToGetCongId.Publisher.CongregationId).OrderBy(x => x.FullName).ToList()
                 };
                 return viewModel;
+
+
             }
         }
 

@@ -1,0 +1,482 @@
+﻿@model SecretaryWebMvc.Models.ViewModels.ActivitiesReportFormViewModel
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="~/css/card.css">
+</head>
+
+@{
+    ViewData["Title"] = "Cartão de Publicador";
+}
+
+<h2> @ViewData["Title"]</h2>
+
+<br />
+
+<div class="col-md-5">
+
+    <form asp-action="Index">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label class="control-label"> Escolha o Publicador</label>
+                    <select asp-for="ActivitiesReport.PublisherId" asp-items="@(new SelectList( @Model.Publishers ,"Id","FullName"))" name="Id" class="form-control">
+                        <option disabled selected>Selecione</option>
+                    </select>
+                </div>
+            </div>
+            </br>
+            <button type="submit" class="btn btn-default" style="margin-left: 10px;margin-top: 5px;">Buscar</button>
+        </div>
+
+    </form>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div id="card">
+
+    <H3>REGISTRO DE PUBLICADOR DE CONGREGAÇÃO</H3>
+    <span style="margin-bottom: -10px; margin-top: 10px;">
+        <strong> Nome : @Model.Name @Model.Adress </strong>
+    </span>
+    <div class="data">
+        <div class="datapersonal">
+            <strong >Data Nascimento : @Model.DateOrNull(1)</strong>
+            <strong> Data Batismo : @Model.DateOrNull(2)</strong>
+        </div>
+
+        <div class="priv">
+            <div>
+                <strong class="span1">
+                    @{
+                        var man = @Model.Gender;
+                        var woman = @Model.Publisher.Id == default ? man : !@Model.Gender;
+                    }
+                    <input type="checkbox" checked="@man">Masculino</input></br>
+                    <input type="checkbox" checked="@Model.IsAnointed">Outras Ovelhas</input>
+                </strong>
+                <strong class="span1">
+
+                    <input type="checkbox" checked="@woman">Feminino</input></br>
+                    <input type="checkbox" checked="@Model.IsAnointed">Ungido</input>
+                </strong>
+            </div>
+            <strong class="privEsp">
+                <input type="checkbox" checked="@Model.IsElder">Ancião</input>
+                <input type="checkbox" checked="@Model.IsMinisterialServant">Servo Ministerial</input>
+                <input type="checkbox" checked="@Model.Ispioneer">Pioneiro Regular</input>
+            </strong>
+        </div>
+    </div>
+
+
+    <table class="activities">
+        <thead>
+            <tr class="title">
+                <th class="th">
+                    <label>Ano de serviço</label><br />
+                    <span>2022</span>
+                </th>
+                <th class="th">
+                    <label>Publicações</label>
+                </th>
+                <th class="th">
+                    <label>Videos <br /> mostrados</label>
+                </th>
+                <th class="th">
+                    <label>Horas</label>
+                </th>
+                <th class="th">
+                    <label>Revisitas</label>
+                </th>
+                <th class="th">
+                    <label>Estudos<br /> biblícos</label>
+                </th>
+                <th class="th_obs">
+                    <label>Observações</label>
+                </th>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                var setembro = @Model.ActivitiesToCard(9);
+                var obs = @setembro.PlusHours + " " + @setembro.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Setembro
+                    </td>
+                    <td align="center">
+                        @setembro.Publications
+                    </td>
+                    <td align="center">
+                        @setembro.Video
+                    </td>
+                    <td align="center">
+                        @setembro.Hours
+                    </td>
+                    <td align="center">
+                        @setembro.Revisits
+                    </td>
+                    <td align="center">
+                        @setembro.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obs
+                    </td>
+                </tr>
+
+                var outubro = @Model.ActivitiesToCard(10);
+                var obsOut = @outubro.PlusHours + " " + @outubro.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Outubro
+                    </td>
+                    <td align="center">
+                        @outubro.Publications
+                    </td>
+                    <td align="center">
+                        @outubro.Video
+                    </td>
+                    <td align="center">
+                        @outubro.Hours
+                    </td>
+                    <td align="center">
+                        @outubro.Revisits
+                    </td>
+                    <td align="center">
+                        @outubro.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsOut
+                    </td>
+                </tr>
+
+                var novembro = @Model.ActivitiesToCard(11);
+                var obsNov = @outubro.PlusHours + " " + @outubro.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Novembro
+                    </td>
+                    <td align="center">
+                        @novembro.Publications
+                    </td>
+                    <td align="center">
+                        @novembro.Video
+                    </td>
+                    <td align="center">
+                        @novembro.Hours
+                    </td>
+                    <td align="center">
+                        @novembro.Revisits
+                    </td>
+                    <td align="center">
+                        @novembro.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsNov
+                    </td>
+                </tr>
+
+                var dezembro = @Model.ActivitiesToCard(12);
+                var obsDez = @outubro.PlusHours + " " + @outubro.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Dezembro
+                    </td>
+                    <td align="center">
+                        @dezembro.Publications
+                    </td>
+                    <td align="center">
+                        @dezembro.Video
+                    </td>
+                    <td align="center">
+                        @dezembro.Hours
+                    </td>
+                    <td align="center">
+                        @dezembro.Revisits
+                    </td>
+                    <td align="center">
+                        @dezembro.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsDez
+                    </td>
+                </tr>
+
+                var janeiro = @Model.ActivitiesToCard(1);
+                var obsJan = @janeiro.PlusHours + " " + @janeiro.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Janeiro
+                    </td>
+                    <td align="center">
+                        @janeiro.Publications
+                    </td>
+                    <td align="center">
+                        @janeiro.Video
+                    </td>
+                    <td align="center">
+                        @janeiro.Hours
+                    </td>
+                    <td align="center">
+                        @janeiro.Revisits
+                    </td>
+                    <td align="center">
+                        @janeiro.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsJan
+                    </td>
+                </tr>
+
+                var fevereiro = @Model.ActivitiesToCard(2);
+                var obsFev = @fevereiro.PlusHours + " " + @fevereiro.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Fevereiro
+                    </td>
+                    <td align="center">
+                        @fevereiro.Publications
+                    </td>
+                    <td align="center">
+                        @fevereiro.Video
+                    </td>
+                    <td align="center">
+                        @fevereiro.Hours
+                    </td>
+                    <td align="center">
+                        @fevereiro.Revisits
+                    </td>
+                    <td align="center">
+                        @fevereiro.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsFev
+                    </td>
+                </tr>
+
+                var março = @Model.ActivitiesToCard(3);
+                var obsmar = @março.PlusHours + " " + @março.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Março
+                    </td>
+                    <td align="center">
+                        @março.Publications
+                    </td>
+                    <td align="center">
+                        @março.Video
+                    </td>
+                    <td align="center">
+                        @março.Hours
+                    </td>
+                    <td align="center">
+                        @março.Revisits
+                    </td>
+                    <td align="center">
+                        @março.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsmar
+                    </td>
+                </tr>
+
+                var abril = @Model.ActivitiesToCard(4);
+                var obsabril = @abril.PlusHours + " " + @abril.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Abril
+                    </td>
+                    <td align="center">
+                        @abril.Publications
+                    </td>
+                    <td align="center">
+                        @abril.Video
+                    </td>
+                    <td align="center">
+                        @abril.Hours
+                    </td>
+                    <td align="center">
+                        @abril.Revisits
+                    </td>
+                    <td align="center">
+                        @abril.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsabril
+                    </td>
+                </tr>
+
+                var maio = @Model.ActivitiesToCard(5);
+                var obsmaio = @maio.PlusHours + " " + @maio.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Maio
+                    </td>
+                    <td align="center">
+                        @maio.Publications
+                    </td>
+                    <td align="center">
+                        @maio.Video
+                    </td>
+                    <td align="center">
+                        @maio.Hours
+                    </td>
+                    <td align="center">
+                        @maio.Revisits
+                    </td>
+                    <td align="center">
+                        @maio.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsmaio
+                    </td>
+                </tr>
+
+                var junho = @Model.ActivitiesToCard(6);
+                var obsjun = @junho.PlusHours + " " + @junho.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Junho
+                    </td>
+                    <td align="center">
+                        @junho.Publications
+                    </td>
+                    <td align="center">
+                        @junho.Video
+                    </td>
+                    <td align="center">
+                        @junho.Hours
+                    </td>
+                    <td align="center">
+                        @junho.Revisits
+                    </td>
+                    <td align="center">
+                        @junho.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsjun
+                    </td>
+                </tr>
+
+                var julho = @Model.ActivitiesToCard(7);
+                var obsjul = @julho.PlusHours + " " + @julho.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Julho
+                    </td>
+                    <td align="center">
+                        @julho.Publications
+                    </td>
+                    <td align="center">
+                        @julho.Video
+                    </td>
+                    <td align="center">
+                        @julho.Hours
+                    </td>
+                    <td align="center">
+                        @julho.Revisits
+                    </td>
+                    <td align="center">
+                        @julho.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsjul
+                    </td>
+                </tr>
+
+                var agosto = @Model.ActivitiesToCard(8);
+                var obsjago = @agosto.PlusHours + " " + @agosto.Observation;
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        Agosto
+                    </td>
+                    <td align="center">
+                        @agosto.Publications
+                    </td>
+                    <td align="center">
+                        @agosto.Video
+                    </td>
+                    <td align="center">
+                        @agosto.Hours
+                    </td>
+                    <td align="center">
+                        @agosto.Revisits
+                    </td>
+                    <td align="center">
+                        @agosto.BibleStudies
+                    </td>
+                    <td align="center">
+                        @obsjago
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        <strong>Total</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(1)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(2)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(3)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(4)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(5)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(6)</strong>
+                    </td>
+                </tr>
+
+                 <tr>
+                    <td align="left" style="padding-left: 8px;">
+                        <strong>Média</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(1,12)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(2,12)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(3,12)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(4,12)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(5,12)</strong>
+                    </td>
+                    <td align="center">
+                        <strong> @Model.TotalActivitiesOrMedia(6,12)</strong>
+                    </td>
+                </tr>
+
+                
+            }
+        </tbody>
+
+    </table>
+
+
+
+
+</div>

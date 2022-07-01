@@ -33,6 +33,9 @@
                 <label>Data Batismo</label>
             </th>
             <th>
+                <label>Sexo</label>
+            </th>
+            <th>
                 <label>Ungido</label>
             </th>
             <th>
@@ -71,6 +74,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(x => item.BaptismDate)
+                </td>
+                <td align="center">
+                    @{
+                        var gender = item.IsMan == true ? "Masc" : "Fem";
+                    }
+                    <span>@gender</span>
                 </td>
                 <td align="center">
                     @Html.DisplayFor(x => item.IsAnointed)

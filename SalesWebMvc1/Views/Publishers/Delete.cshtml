@@ -36,6 +36,15 @@
             @Html.DisplayFor(model => model.Publisher.BaptismDate)
         </dd>
         <dt>
+            <label>Sexo</label>
+        </dt>
+        @{
+            var gender = Model.Publisher.IsMan == true ? "Masc": "Fem"; 
+        }
+        <dd>
+            <span>@gender</span>
+        </dd>
+        <dt>
             <label>Ungido</label>
         </dt>
         <dd>
