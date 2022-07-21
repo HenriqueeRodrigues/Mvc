@@ -213,6 +213,11 @@ namespace SecretaryWebMvc.Models.ViewModels
                 return string.Empty;
             }
         }
+
+        public DateTime DateBefore()
+        {
+            return DateTime.Now.AddMonths(-1);
+        }
     }
 
 }

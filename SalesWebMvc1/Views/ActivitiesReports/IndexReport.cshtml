@@ -18,7 +18,7 @@
 </div>
 <br />
 
-@if (Model != null)
+@if (Model != null && Model.ActivitiesReports.Any())
 {
     var month = Model.ActivitiesReports.FirstOrDefault(x => x.Date != DateTime.MinValue).Date.Month;
     var sumPublisher = @Model.ActivitiesReports.FirstOrDefault(x => x.Publisher.Congregation.SumPublishers > 0);
@@ -265,6 +265,10 @@
             }
         </table>
     }
+}
+else
+{
+    <strong>Sem atividades para esse mês, selecione outro mÊs</strong>
 }
 
 
