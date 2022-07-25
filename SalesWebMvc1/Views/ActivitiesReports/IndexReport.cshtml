@@ -45,8 +45,8 @@
 
                 <dt class="col-md-4">
                     <label>Assistência Médias as Reuniões</label><br />
-                    <label>Meio de Semana : @Model.Assistance("week")</label> <br />
-                    <label>Fim de semana : @Model.Assistance()</label>
+                    <label>Meio de Semana : Média: @Model.Assistance("week") | @Model.ValueToMediaWeek / @Model.ValueDaysWeek </label> <br />
+                    <label>Fim de semana : Média: @Model.Assistance() | @Model.ValueToMediaWeek / @Model.ValueDaysWeekend </label>
                 </dt>
             </dl>
         </table>

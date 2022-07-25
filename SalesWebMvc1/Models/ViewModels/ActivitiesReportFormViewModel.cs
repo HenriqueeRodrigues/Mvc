@@ -39,24 +39,34 @@ namespace SecretaryWebMvc.Models.ViewModels
 
         public bool Ispioneer { get => Publisher.Id != default ? Publisher.Ispioneer : false; }
 
+        public double ValueToMediaWeekend { get; set; }
+
+        public double ValueDaysWeekend { get; set; }
+
+        public int ValueToMediaWeek { get; set; }
+
+        public int ValueDaysWeek { get; set; }
+
+
+
         public double Assistance(string week = null)
         {
             if (string.IsNullOrEmpty(week))
             {
                 var assistanceWeekend = Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Saturday || x.Date.DayOfWeek == DayOfWeek.Sunday);
-                double sumWeekeend = assistanceWeekend.Sum(x => x.Quantity);
-                double countDays = assistanceWeekend.Count();
-                double mediaWeekend =   sumWeekeend / countDays;
+                this.ValueToMediaWeekend = assistanceWeekend.Sum(x => x.Quantity);
 
-                return mediaWeekend;
+                this.ValueDaysWeekend = assistanceWeekend.Count();
+
+                return ValueToMediaWeekend / ValueDaysWeekend;
             }
 
             var assistanceWeek = Assistances.Where(x => x.Date.DayOfWeek == DayOfWeek.Wednesday || x.Date.DayOfWeek == DayOfWeek.Thursday);
-            double sumWeek = assistanceWeek.Sum(x => x.Quantity);
-            double countDaysWeek = assistanceWeek.Count();
+            this.ValueToMediaWeek = assistanceWeek.Sum(x => x.Quantity);
 
-            double mediaWeek = sumWeek / countDaysWeek;
-            return mediaWeek;
+            this.ValueDaysWeek = assistanceWeek.Count();
+
+            return ValueToMediaWeek / ValueDaysWeek;
         }
 
         public ActivitiesReport ActivitiesToCard(int month)
