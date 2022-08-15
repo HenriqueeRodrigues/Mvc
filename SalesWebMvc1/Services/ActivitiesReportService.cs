@@ -70,7 +70,7 @@ namespace SecretaryWebMvc.Services
 
                 if (item.Publisher.CongregationId == congUserLoged &&
                     item.Date.Month == reportMonth?.Date.Month &&
-                    item.Date.Year == reportMonth?.Date.Year )
+                    item.Date.Year == reportMonth?.Date.Year)
                 {
                     listResult.Add(item);
                 }
@@ -111,7 +111,7 @@ namespace SecretaryWebMvc.Services
                     .FirstOrDefaultAsync(x => x.Publisher.CongregationId == userLoged.CongregationId);
 
         }
-       
+
 
         public async Task<List<ActivitiesReport>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
@@ -138,7 +138,10 @@ namespace SecretaryWebMvc.Services
             var updatePublisherrelated = await _PublisherService.FindAllPublisherAndCongregationAsync();
             var publisherParams = updatePublisherrelated.FirstOrDefault(x => x.Id == obj.PublisherId);
 
-            publisherParams.LastActivitiesRelated = DateTime.Today;
+            if (!obj.PublisherRelated)
+            {
+                publisherParams.LastActivitiesRelated = DateTime.Today;
+            }
             await _PublisherService.UpdateAsync(publisherParams);
         }
 

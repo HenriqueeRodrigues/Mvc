@@ -30,12 +30,14 @@
 
     if (sumPublisher != null)
     {
+        <h4 style="color: #446e9b">Congregação: @sumPublisher.Publisher.Congregation.Name </h4>
+        <br />
         <table>
             <dl class="row">
                 <dt class="col-md-4">
-                    <label>Congregação: @sumPublisher.Publisher.Congregation.Name </label><br />
                     <label>Total de Publicadores: @sumPublisher.Publisher.Congregation.SumPublishers  </label>
                     <label>Publicadores Irregulares : @Model.ActivitiesReports.Where(x => x.PublisherRelated == true).Count()</label>
+                    <label>Publicadores Inativos : @Model.Inativo()</label>
                 </dt>
                 <dt class="col-md-4">
                     <label>Publicadores que relataram : @Model.ActivitiesReports.Where(x => x.PublisherRelated == false && x.Publisher.Ispioneer == false && x.IsPionerAux == false).Count()</label>
@@ -46,7 +48,7 @@
                 <dt class="col-md-4">
                     <label>Assistência Médias as Reuniões</label><br />
                     <label>Meio de Semana : Média: @Model.Assistance("week") | @Model.ValueToMediaWeek / @Model.ValueDaysWeek </label> <br />
-                    <label>Fim de semana : Média: @Model.Assistance() | @Model.ValueToMediaWeek / @Model.ValueDaysWeekend </label>
+                    <label>Fim de semana : Média: @Model.Assistance() | @Model.ValueToMediaWeekend / @Model.ValueDaysWeekend </label>
                 </dt>
             </dl>
         </table>

@@ -48,7 +48,6 @@ namespace SecretaryWebMvc.Models.ViewModels
         public int ValueDaysWeek { get; set; }
 
 
-
         public double Assistance(string week = null)
         {
             if (string.IsNullOrEmpty(week))
@@ -67,6 +66,23 @@ namespace SecretaryWebMvc.Models.ViewModels
             this.ValueDaysWeek = assistanceWeek.Count();
 
             return ValueToMediaWeek / ValueDaysWeek;
+        }
+
+        public double Inativo()
+        {
+            var date6MonthsBefore = DateTime.Now.AddMonths(-6);
+
+            List<Publisher> publicadoresInativos = new List<Publisher>();
+
+            foreach (var item in ActivitiesReports)
+            {
+                if (item.Publisher.LastActivitiesRelated < date6MonthsBefore || item.Publisher.LastActivitiesRelated == null)
+                {
+                    publicadoresInativos.Add(item.Publisher);
+                }
+            }
+
+            return publicadoresInativos.Count();
         }
 
         public ActivitiesReport ActivitiesToCard(int month)
@@ -157,6 +173,14 @@ namespace SecretaryWebMvc.Models.ViewModels
             return result;
         }
 
+
+        public DateTime MonthBefore()
+        {
+            var result = DateTime.Now.AddMonths(-1);
+
+            return result;
+
+        }
 
         public string Month(int month)
         {
