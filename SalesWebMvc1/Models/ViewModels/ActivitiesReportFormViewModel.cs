@@ -20,6 +20,7 @@ namespace SecretaryWebMvc.Models.ViewModels
 
         public ICollection<Assistance> Assistances { get; set; }
 
+        public bool EditMonth { get; set; } = false;
 
         public string Name { get => Publisher.Id != default ? Publisher.FullName : string.Empty; }
 
@@ -27,7 +28,7 @@ namespace SecretaryWebMvc.Models.ViewModels
 
         public DateTime BirthDate { get => Publisher.Id != default ? Publisher.BirthDate : DateTime.MinValue; }
 
-        public DateTime BaptismDate { get => Publisher.Id != default ? Publisher.BaptismDate : DateTime.MinValue; }
+        public DateTime? BaptismDate { get => Publisher.Id != default ? Publisher.BaptismDate : DateTime.MinValue; }
 
         public bool Gender { get => Publisher.Id != default ? Publisher.IsMan : false; }
 
@@ -240,17 +241,31 @@ namespace SecretaryWebMvc.Models.ViewModels
             }
             else
             {
+
                 if (this.BaptismDate != DateTime.MinValue)
                 {
-                    return this.BaptismDate.ToString("dd/MM/yyyy");
+                    return this.BaptismDate.Value.ToString("dd/MM/yyyy");
+
                 }
                 return string.Empty;
             }
         }
 
-        public DateTime DateBefore()
+        public string  SetDateLastMonth()
         {
-            return DateTime.Now.AddMonths(-1);
+            var result = DateTime.Now.AddMonths(-1);
+
+            return this.Month(result.Month);
+        }
+
+        public bool Checked()
+        {
+            return EditMonth;
+        }
+
+        public virtual void OnClick()
+        {
+
         }
     }
 

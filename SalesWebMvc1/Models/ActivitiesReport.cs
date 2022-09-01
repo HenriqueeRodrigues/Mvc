@@ -11,7 +11,6 @@ namespace SecretaryWebMvc.Models
         public int Id { get; set; }
 
 
-        [Required(ErrorMessage = "{0} required")]
         [Display(Name = "Mes do relatorio")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:/MM/yyyy}")]

@@ -26,7 +26,7 @@ namespace SecretaryWebMvc.Models
         [Display(Name = "Data de Batismo")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime BaptismDate { get; set; }
+        public DateTime? BaptismDate { get; set; }
 
 
         public bool IsAnointed { get; set; }

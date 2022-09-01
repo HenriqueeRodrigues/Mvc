@@ -131,14 +131,19 @@ namespace SecretaryWebMvc.Services
                 .ToListAsync();
         }
 
-        public async Task InsertAsync(ActivitiesReport obj)
+        public async Task InsertAsync(ActivitiesReport activities)
         {
-            _context.Add(obj);
+            if (activities.Date == DateTime.MinValue)
+            {
+                activities.Date = DateTime.Now.AddMonths(-1);
+            }
+
+            _context.Add(activities);
             await _context.SaveChangesAsync();
             var updatePublisherrelated = await _PublisherService.FindAllPublisherAndCongregationAsync();
-            var publisherParams = updatePublisherrelated.FirstOrDefault(x => x.Id == obj.PublisherId);
+            var publisherParams = updatePublisherrelated.FirstOrDefault(x => x.Id == activities.PublisherId);
 
-            if (!obj.PublisherRelated)
+            if (!activities.PublisherRelated)
             {
                 publisherParams.LastActivitiesRelated = DateTime.Today;
             }
