@@ -69,6 +69,18 @@ namespace SecretaryWebMvc.Models.ViewModels
             return ValueToMediaWeek / ValueDaysWeek;
         }
 
+        public double PublisherRelated(bool irregular = false)
+        {
+            if (irregular)
+            {
+                var publishersIrregulares = ActivitiesReports.Where(x => x.PublisherRelated == true);
+                return ActivitiesReports.Where(x => x.PublisherRelated == true).Count();
+            }
+
+            var active = this.ActivitiesReports.Where(x => x.PublisherRelated == false && x.Publisher.Ispioneer == false && x.IsPionerAux == false).Count();
+
+            return active;
+        }
         public double Inativo()
         {
             var date6MonthsBefore = DateTime.Now.AddMonths(-6);
@@ -77,7 +89,7 @@ namespace SecretaryWebMvc.Models.ViewModels
 
             foreach (var item in ActivitiesReports)
             {
-                if (item.Publisher.LastActivitiesRelated < date6MonthsBefore || item.Publisher.LastActivitiesRelated == null)
+                if (item.Publisher.LastActivitiesRelated < date6MonthsBefore )
                 {
                     publicadoresInativos.Add(item.Publisher);
                 }

@@ -36,11 +36,11 @@
             <dl class="row">
                 <dt class="col-md-4">
                     <label>Total de Publicadores: @sumPublisher.Publisher.Congregation.SumPublishers  </label>
-                    <label>Publicadores Irregulares : @Model.ActivitiesReports.Where(x => x.PublisherRelated == true).Count()</label>
+                    <label>Publicadores Irregulares : @Model.PublisherRelated(true)</label>
                     <label>Publicadores Inativos : @Model.Inativo()</label>
                 </dt>
                 <dt class="col-md-4">
-                    <label>Publicadores que relataram : @Model.ActivitiesReports.Where(x => x.PublisherRelated == false && x.Publisher.Ispioneer == false && x.IsPionerAux == false).Count()</label>
+                    <label>Publicadores que relataram : @Model.PublisherRelated()</label>
                     <label>P. Regulares que relataram : @Model.ActivitiesReports.Where(x => x.Publisher.Ispioneer == true).Count()</label>
                     <label>P. Auxiliares que relataram : @Model.ActivitiesReports.Where(x => x.IsPionerAux).Count()</label>
                 </dt>

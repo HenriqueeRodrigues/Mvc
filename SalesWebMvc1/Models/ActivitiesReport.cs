@@ -10,8 +10,6 @@ namespace SecretaryWebMvc.Models
     {
         public int Id { get; set; }
 
-
-        [Display(Name = "Mes do relatorio")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:/MM/yyyy}")]
         public DateTime Date { get; set; }

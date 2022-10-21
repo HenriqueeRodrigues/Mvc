@@ -139,13 +139,13 @@ namespace SecretaryWebMvc.Controllers
             }
             if (User.Identity.IsAuthenticated)
             {
-                var userLogedCongregation = await this.GetUserLogadoAndCongregation(actives);
+                var activittiesMonth = await this.GetUserLogadoAndCongregation(actives);
 
-                var congId = userLogedCongregation.FirstOrDefault(x => x.Publisher.CongregationId != 0);
+                var congId = activittiesMonth.FirstOrDefault(x => x.Publisher.CongregationId != 0);
 
                 if (congId == null)
                 {
-                    var viewModelWithoutAssistance = new ActivitiesReportFormViewModel { ActivitiesReports = userLogedCongregation };
+                    var viewModelWithoutAssistance = new ActivitiesReportFormViewModel { ActivitiesReports = activittiesMonth };
 
                     return View(viewModelWithoutAssistance);
 
@@ -154,7 +154,7 @@ namespace SecretaryWebMvc.Controllers
 
                 var assistanceByDate = assistance.Where(x => x.Date.Month == actives.Date.Month).ToList();
 
-                var viewModel = new ActivitiesReportFormViewModel { ActivitiesReports = userLogedCongregation, Assistances = (ICollection<Assistance>)assistanceByDate };
+                var viewModel = new ActivitiesReportFormViewModel { ActivitiesReports = activittiesMonth, Assistances = (ICollection<Assistance>)assistanceByDate };
                 return View(viewModel);
             }
             else
